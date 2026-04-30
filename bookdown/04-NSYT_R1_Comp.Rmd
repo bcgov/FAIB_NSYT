@@ -132,7 +132,7 @@ The resulting NSYT closest data frame is loaded to disk and its vol_dif field is
 
 ```{r tab-closest_match,message=FALSE,warning=FALSE}
 
-prov<-readRDS("data/tables/nsyt_closest.rds")
+prov<-readRDS("C:/Data_YC/NSYT/provincial_NSYT/documentation/nsyt_closest.rds")
 # pretty_table(describe(prov))
 kable(describe(prov),
       caption =  "Volume Comparison Table",

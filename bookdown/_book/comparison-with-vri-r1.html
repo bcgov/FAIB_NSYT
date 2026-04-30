@@ -313,7 +313,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>The resulting NSYT closest data frame is loaded to disk and its vol_dif field is then assessed statistically using the dlookr::describe function.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="comparison-with-vri-r1.html#cb15-1" tabindex="-1"></a></span>
-<span id="cb15-2"><a href="comparison-with-vri-r1.html#cb15-2" tabindex="-1"></a>prov<span class="ot">&lt;-</span><span class="fu">readRDS</span>(<span class="st">&quot;data/tables/nsyt_closest.rds&quot;</span>)</span>
+<span id="cb15-2"><a href="comparison-with-vri-r1.html#cb15-2" tabindex="-1"></a>prov<span class="ot">&lt;-</span><span class="fu">readRDS</span>(<span class="st">&quot;C:/Data_YC/NSYT/provincial_NSYT/documentation/nsyt_closest.rds&quot;</span>)</span>
 <span id="cb15-3"><a href="comparison-with-vri-r1.html#cb15-3" tabindex="-1"></a><span class="co"># pretty_table(describe(prov))</span></span>
 <span id="cb15-4"><a href="comparison-with-vri-r1.html#cb15-4" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">describe</span>(prov),</span>
 <span id="cb15-5"><a href="comparison-with-vri-r1.html#cb15-5" tabindex="-1"></a>      <span class="at">caption =</span>  <span class="st">&quot;Volume Comparison Table&quot;</span>,</span>
