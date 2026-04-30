@@ -1,0 +1,21 @@
+--- 
+title: "provincial NSYT production process and assessment"
+author: "author"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+---
+
+# Prerequisites
+
+This is the documentation of how provincial natural stand yield table (NSYT) was generated and the assessments of the product.
+
+```{r eval=FALSE, echo=FALSE}
+install.packages("bookdown")
+# or the development version
+# devtools::install_github("rstudio/bookdown")
+
+##to render the book
+bookdown::render_book('bookdown', 'all')
+```

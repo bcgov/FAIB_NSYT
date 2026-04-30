@@ -1,0 +1,154 @@
+# Comparison with VRI R1
+
+The following contrasts the Beta version of the 2026 Provincial Natural Stand Yield Table (NSYT) dataset with the currently published production year 2025 (projection year Dec 2024) veg_comp_lyr_r1_poly_2024 (R1). The R1 contains **6872386** features, 90% of which (**6209645**) has a species identified and  (spec_cd_1) and 89% (**6140967**) remain after initial cleaning.
+
+```{r set-up, message=FALSE,warning=FALSE}
+library(DBI)
+library(RPostgreSQL)
+library(tidyverse)
+library(terra)
+library(R.utils)
+library(tidytext)
+library(arsenal)
+library(dlookr)
+library(gdalUtilities)
+library(glue)
+library(janitor)
+library(knitr)
+library(kableExtra)
+library(tidytext)
+library(fs)
+library(data.table)
+library(glue)
+library(janitor)
+library(dtplyr)
+
+rm(list = ls())
+
+
+options(scipen = 999)
+set.seed(123)
+# source("log_files.R")
+
+
+knitr::opts_chunk$set(
+  echo = TRUE,              # Show code in the output
+  fig.width = 4,            # Set the width of the figures (in inches)
+  fig.height = 4,           # Set the height of the figures (in inches)
+  collapse = TRUE,          # Collapsing code and output
+  # out.width = '250px',      # Standardize output image width
+  # out.height = '250px',     # Standardize output image height
+  message = FALSE,          # Hide messages
+  warning = FALSE           # Hide warnings
+)
+
+
+```
+##  Get data
+
+The following snippet loads an existing VDYP from an RDS file containing **6140967** features, and joins it with the data pulled from the MSYT postgres database based on feature_id. Various new columns are created, including estimated volumes (vri_vol), capped age (vri_age250), and interpolated volumes (vdyp_vol) based on age ranges. The dataset is cleaned and transformed using dplyr functions.
+
+Finally, the script calculates the closest volume match for each feature by comparing two volume estimates (vdyp_vol and prj_vol_dwb), selecting the record with the smallest difference between the two. The result is a refined dataset (nsyt_closest) where each feature has a matched volume estimate, and a new column (vol_dif) is added to represent the difference between the two volume estimates. This processing likely aids in vegetation analysis, volume estimation, or model calibration based on multiple data sources.
+
+```{r get_data, message=FALSE,warning=FALSE,eval=FALSE}
+
+schema <- 'msyt_2025'
+opt <- paste0("-c search_path=",schema)
+user_name <- 'results'
+database <- 'msyt'
+db<- dbConnect('PostgreSQL',dbname=database,user=user_name,options = opt)
+
+prov<-readRDS("./data/rds/prov_nsyt2026.rds")
+
+
+sql<-glue_sql("select
+              feature_id,
+              proj_age_1 as age,
+              species_cd_1 as leading_species,
+              species_cd_2 as second_species,
+              live_stand_volume_125 as r1_vol125,
+              live_stand_volume_175 as r1_vol175,
+              dead_stand_volume_125 as r1_dvol125
+              from veg_comp_fdw_full",.con = db)
+
+r1<-dbGetQuery(db,sql)
+
+##############################################################################
+# # 
+prov_df<-inner_join(prov_df,r1,join_by("feature_id"))
+
+prov_df2 <- prov_df %>%
+  mutate(
+    vri_vol = case_when(
+      grepl("^P", leading_species) ~ r1_vol125,
+      grepl("^A", leading_species) ~ r1_vol125,
+      grepl("^E", leading_species) ~ r1_vol125,
+      grepl("^D", leading_species) ~ r1_vol125,
+      grepl("^M", leading_species) ~ r1_vol125,
+      grepl("^W", leading_species) ~ r1_vol125,
+      TRUE ~ r1_vol175  # Otherwise, assign r1_vol175
+    ),
+    across(where(is.numeric), ~replace_na(., 0)),
+    vri_age250 = pmin(age, 250),
+    age_low  = floor(vri_age250/10) * 10,
+    age_high = ceiling(vri_age250/10) * 10,
+    p_low    = (age_high - vri_age250) / 10
+  ) %>%
+  group_by(feature_id) %>%
+  mutate(
+    l_vol = prj_vol_dwb[match(age_low,  prj_total_age)],
+    u_vol = prj_vol_dwb[match(age_high, prj_total_age)],
+    vdyp_vol = (p_low * l_vol) + ((1 - p_low) * u_vol)
+  ) %>%
+  select(feature_id, vri_vol,l_vol, u_vol, vdyp_vol)%>%
+  slice(1)%>%
+  ungroup()
+
+nsyt<-inner_join(prov_df,prov_df2,join_by("feature_id"))
+
+
+nsyt_closest <- nsyt %>%
+  filter(!is.na(vdyp_vol), !is.na(prj_vol_dwb)) %>%
+  group_by(feature_id) %>%
+  slice_min(abs(prj_vol_dwb - vdyp_vol),
+            n = 1,
+            with_ties = FALSE) %>%
+  ungroup()%>%
+  mutate(vol_dif = vri_vol - vdyp_vol
+```
+##  Closest Match
+
+The closest match volume calculation works by identifying the record with the smallest absolute difference between two volume estimates for each feature. Specifically, the script compares two columns: vdyp_vol (a volume estimate derived from a linear interpolation of two decadal volumes based on age [proj_age_1]) and prj_vol_dwb (the decadal VDYP volume). 
+
+- Filtering for Valid Volumes: The script first filters out any rows where either vdyp_vol or prj_vol_dwb is NA, ensuring that only valid rows with both volume estimates are considered for comparison.
+
+- Grouping by feature_id: The data is grouped by feature_id, meaning the script performs the closest match calculation separately for each feature (or record).
+
+- Identifying the Closest Match: For each group (feature_id), the script calculates the absolute difference between vdyp_vol and prj_vol_dwb using the expression abs(prj_vol_dwb - vdyp_vol). The row with the smallest difference is considered the "closest match" for that feature. This is achieved using the slice_min function, which selects the row where the absolute difference is the smallest (n = 1), ensuring that ties (rows with the same smallest difference) are excluded (with_ties = FALSE).
+
+- Calculating the Volume Difference: Once the closest match is found, a new column vol_dif is created, which represents the difference between the VDYP derived lineral interpolation and the R1 volume: vol_dif = vri_vol - vdyp_vol.The output is then saved as a RDS file.
+
+The resulting NSYT closest data frame is loaded to disk and its vol_dif field is then assessed statistically using the dlookr::describe function. 
+
+```{r tab-closest_match,message=FALSE,warning=FALSE}
+
+prov<-readRDS("data/tables/nsyt_closest.rds")
+# pretty_table(describe(prov))
+kable(describe(prov),
+      caption =  "Volume Comparison Table",
+      format = "html",
+      booktabs = TRUE) %>%
+ kable_styling(full_width = TRUE,
+               font_size = 10) %>%
+  scroll_box(width = "100%")
+
+```
+
+Of the **6140967** features assessed the mean difference in volume between the VDYP dataset and the R1 is **-1.8m3 (sd: 11.13)**, the median difference is **-0.015m3** , **986984** (16%) of the features have volume difference > +/- 5m3, **454585** (8%) features have volume difference >  +/- 10m3 and **170037** (2.7%) features have volume difference > +/- 20m3.
+
+The are a number of sources that drive divergence including approaches to interpolation (most common source for volume differences < 5m3), age cutoffs and layer/project table input error in both the R1 and vdyp_vol dataset. The provincial VDYP dataset has an age cutoff of 250 years effecting **244710** (25%) of the **986984**  of the features have volume difference > +/- 5m3. 85% of the features > 250 years of age have vdyp volumes > the R1 volume suggesting the much older stands in the R1 are decrementing volume, driving the divergence. There are **15270** features that have ages > 250 and vdyp_vols == 0. 
+
+Of the features < 250 years of age **742274** (12%) of the features have volume difference > +/- 5m3, **285508** (4.6%) features have volume difference >  +/- 10m3 and **70880** (1%) features have volume difference > +/- 20m3. There **9935** features where the vri_vol == 0 and the vdyp_vol > 0 and **365** features where the vdyp_vol  == 0.
+
+**112262** features < 250 years have R1 yields more reflective of the layer table est_age_1 and 2 fields than the projected age (proj_age_1) suggesting an error has occured in the 2025 update.  
+

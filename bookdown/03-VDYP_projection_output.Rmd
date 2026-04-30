@@ -1,0 +1,19 @@
+# VDYP projection parameters and final yield table development
+
+**VDYP7 console version:** 7.17d
+
+**projection parameters:**
+
+| parameters                 | value                                                       |
+|----------------------------|-------------------------------------------------------------|
+| time series                | age 0-250 years old                                         |
+| time increments            | 10 years                                                    |
+| reported utilization level | 12.5cm pine and deciduous, 17.5cm for all other species     |
+
+
+**calculated attributes in the final NSYT**
+
+- conifer only live volume: conifer only live volume is calculated by adding up the projected volume of the conifer portion of each FEATURE_ID.
+- deciduous only live volume: deciduous only live volume is calculated by adding up the projected volume of the deciduous portion of each FEATURE_ID.
+- conifer height and deciduous height: VDYP7 doesn't project conifer height and deciduous height. A height ratio between conifer height and deciduous height is developed using managed stand yield table by BEC_ZONE and BEC variants, and the ratio was applied to the PRJ_DOM_HT to estimate conifer height and deciduous height.
+

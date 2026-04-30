@@ -1,0 +1,14 @@
+# Introduction
+
+Provincial NSYT is generated using Rank 1 (R1) layer of provincial VRI attributes. Variable Density Yield Projection system version 7 (VDYP7) is used for the projection. The purpose of this product is to assist in the modelling process in timber supply review and forest landscape planning.  
+
+The following chapters describe how the inputs were prepared and two sets of assessments that have been done to evaluate the product:
+
+Chapter 3 describes how VDYP inputs was prepared and necessary updates/corrections of the inputs
+
+Chapter 4 shows the VDYP projection parameters and attributes that were used for the final products 
+
+Chapter 5 presents the comparison report which compares projected volume from provincial NSYT to the live volume in VRI R1 layer
+
+Chapter 6 presents a comparison between the polygon level volume using two types of inputs: inputs that only include R1 layer (this product, polygon level volume is the projected volume from R1 layer) and input that includes all layers (polygon level volume is the summarize of projected volume from all layers).
+

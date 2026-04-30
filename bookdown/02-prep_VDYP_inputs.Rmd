@@ -1,0 +1,868 @@
+# VDYP inputs preparation
+## load input data
+### postgres database connection
+```{r init, warning=FALSE,echo = TRUE,message=FALSE,eval = FALSE}
+library(RPostgreSQL)
+library(data.table)
+library(tidyverse)
+library(readr)
+library(kableExtra)
+
+# simple connection
+# SCHEMA are referenced explicitly in the table names
+
+user_name <- 'postgres'
+data_base <- 'vdyp'
+ 
+con <- dbConnect('PostgreSQL',dbname=data_base,user=user_name)
+
+kablep <- function (x) {
+  kable(x,format='markdown')
+} 
+
+# set this up as a function
+run_sql <- function(fn){
+  
+  system2("psql",args=c('-d',data_base,'-U',user_name,'-f',fn))
+  
+}
+
+SQLQuery <- function(query){
+  con <- dbConnect('PostgreSQL',dbname=data_base,user=user_name)  
+  data <- dbGetQuery(con,query)
+  dbDisconnect(con)
+  return(data)
+  
+} 
+```
+### Load 2024 VDYP input layer table to postgres
+```{r load_layer, warning=FALSE,echo = TRUE,message=FALSE,eval = FALSE}
+
+file_path <- "D:/data/projects/VDYP/VDYP/2024/vdyp_input_layer_2024.csv"
+
+file <- read_csv(file_path)
+colnames(file) <- tolower(colnames(file))
+
+dbWriteTable(con, "vdyp7_input_layer_2024", file, row.names=FALSE, overwrite=TRUE)
+rm(file)
+```
+
+### Load 2024 VDYP input polygon table to postgres
+```{r load_poly, warning=FALSE,echo = TRUE,message=FALSE,eval = FALSE}
+
+file_path <- "D:/data/projects/VDYP/VDYP/2024/vdyp_input_poly_2024.csv"
+
+file <- read_csv(file_path)
+colnames(file) <- tolower(colnames(file))
+
+dbWriteTable(con, "vdyp7_input_poly_2024", file, row.names=FALSE, overwrite=TRUE)
+rm(file)
+```
+
+### Load rank1 2024
+```{r load_rank1, warning=FALSE,echo = TRUE,message=FALSE,eval = FALSE}
+
+file_path <- "D:/data/projects/VDYP/VDYP/2024/rank1_2024.csv"
+
+file <- read_csv(file_path)
+
+names(file) <- tolower(names(file))
+
+dbWriteTable(con, "rank1_2024", file, row.names=FALSE, overwrite=TRUE)
+rm(file)
+```
+
+### Load TSA LIST
+```{r load_tsa, warning=FALSE,echo = TRUE,message=FALSE,eval = FALSE}
+
+file_path <- "D:/data/projects/VDYP/VDYP/2024/tsa_msyt_2025.csv"
+
+file <- read_csv(file_path)
+
+dbWriteTable(con, "fid_by_tsa_2025", file, row.names=FALSE, overwrite=TRUE)
+rm(file)
+```
+
+## Process input data
+### VRI Project count for feature in list but not in polygon
+Are those all Private Land?
+check if those are non-treed from rank1
+```{r check_missing_polygon, warning=FALSE,echo = TRUE,message=FALSE,eval = FALSE}
+query <- "select distinct project, bclcs_level_2, count(*) from public.rank1_2024
+where feature_id not in (select feature_id from vdyp7_input_poly_2024) 
+group by 1,2"
+
+missing_poly <- dbGetQuery(con, query)
+kable(missing_poly,format='markdown')
+```
+
+### Polygons without R1 layer assigned
+- 4419 features missing rank1 
+```{r update_rank1, warning=FALSE,echo = TRUE,message=FALSE,eval = FALSE}
+
+query <- "select count(distinct feature_id) from vdyp7_input_layer_2024 
+where feature_id not in (select distinct feature_id from vdyp7_input_layer_2024 where forest_cover_rank_code = 1)
+"
+missing_rank <- dbGetQuery(con, query)
+
+kable(missing_rank,format='markdown')
+```
+
+assign rank code to polygon according to VRI standard:
+
+step1: for stands only has 1 non-dead layer, assign as rank1, needs to make sure rank's only assigned to non-dead layer
+
+step2: the first layer of a polygon (ordered by ascending layer_id) that has a crown closure greater than 10 percent and is not a D layer is assigned rank 1
+
+step3: For polygons without layers with a crown closure above 10, the layer with the largest crown closure that is not a D layer is assigned as rank 1
+
+step4: check the remaining features, all of them have dead/null layer_level_code only
+
+check the remaining features, all of them have dead/null layer_level_code only
+why are layer_level_code null - what are they?
+```{r eval=FALSE,error=TRUE,eval = FALSE}
+
+run_sql('01_fill_rank1.sql')
+
+r1 <- SQLQuery('select distinct layer_level_code, count(feature_id) from vdyp7_input_layer_2024 
+where feature_id not in (select distinct feature_id from vdyp7_input_layer_2024 where rank_cd_update = 1) 
+group by 1')
+
+kablep(r1)
+
+```
+### check & fix species comp for rank1
+
+#### Issues Addressed
+1. Species percentage > 0 but species code is missing → removed
+2. Total species percentage ≠ 100 → normalized
+3. Duplicate species codes within a feature → aggregated
+4. Species not ordered by dominance → reordered
+5. Invalid species codes (e.g., LS → L, VW → CW) → corrected
+6. Features with no valid species → flagged
+
+#### Key Processing Steps
+- Convert wide species columns to long format for validation
+- Remove invalid or blank species codes
+- Standardize species and site index codes
+- Aggregate duplicate species by summing percentages
+- Reorder species by descending percentage
+- Reshape back to wide format (species_cd_1–6, species_pct_1–6)
+- Normalize percentages:
+  - If total < 100 → add difference to species 1
+  - If total > 100 → scale all species proportionally
+- Round percentages to 1 decimal place
+- Track all changes using `change_log`
+
+#### Output
+- Table: `prov_updated_spp_2024`
+- Includes cleaned species composition and change tracking
+
+```{r spp_comp, warning=FALSE,echo = TRUE,message=FALSE,eval=FALSE}
+library(tidyr)
+library(dplyr)
+library(DBI)
+
+# -----------------------------------------------
+# Pull source data
+# -----------------------------------------------
+query <- "
+SELECT feature_id,est_site_index_species_cd,
+       species_cd_1, species_pct_1,
+       species_cd_2, species_pct_2,
+       species_cd_3, species_pct_3,
+       species_cd_4, species_pct_4,
+       species_cd_5, species_pct_5,
+       species_cd_6, species_pct_6
+FROM vdyp7_input_layer_2024
+WHERE rank_cd_update = 1;
+"
+
+spp_comp <- dbGetQuery(con, query)
+
+# -----------------------------------------------
+# Initialize change tracking field
+# -----------------------------------------------
+spp_comp$change_log <- NA_character_
+
+add_change <- function(log, tag) {
+  ifelse(
+    is.na(log),
+    tag,
+    paste(log, tag, sep = " | ")
+  )
+}
+
+all_features <- spp_comp %>% distinct(feature_id)
+# -----------------------------------------------
+# Fix outdated est_site_index_species_cd
+# -----------------------------------------------
+spp_comp <- spp_comp %>%
+  mutate(
+    original_si_cd = est_site_index_species_cd,
+    est_site_index_species_cd = case_when(
+      toupper(est_site_index_species_cd) == "LS" ~ "L",
+      toupper(est_site_index_species_cd) == "VW" ~ "CW",
+      TRUE ~ toupper(est_site_index_species_cd)
+    )
+  )
+
+changed_si <- spp_comp %>%
+  filter(original_si_cd != est_site_index_species_cd,
+         !is.na(original_si_cd)) %>%
+  distinct(feature_id)
+
+if (nrow(changed_si) > 0) {
+  spp_comp$change_log[
+    spp_comp$feature_id %in% changed_si$feature_id
+  ] <- add_change(
+    spp_comp$change_log[
+      spp_comp$feature_id %in% changed_si$feature_id
+    ],
+    "SITE_INDEX_SPECIES_UPDATED"
+  )
+}
+
+spp_comp <- spp_comp %>% select(-original_si_cd)
+
+# -----------------------------------------------
+# Pivot to long format
+# -----------------------------------------------
+species_long_cd <- spp_comp %>%
+  pivot_longer(
+    cols = starts_with("species_cd_"),
+    names_to = "rank",
+    names_pattern = "species_cd_(\\d+)",
+    values_to = "species_cd"
+  )
+
+species_long_pct <- spp_comp %>%
+  pivot_longer(
+    cols = starts_with("species_pct_"),
+    names_to = "rank",
+    names_pattern = "species_pct_(\\d+)",
+    values_to = "percentage"
+  ) %>%
+  mutate(percentage = replace_na(percentage, 0))
+
+species_long <- inner_join(
+  species_long_cd,
+  species_long_pct,
+  by = c("feature_id", "rank")
+)
+
+# -----------------------------------------------
+# Remove invalid species codes
+# -----------------------------------------------
+species_long <- species_long %>%
+  filter(
+    !is.na(species_cd),
+    trimws(species_cd) != ""
+  )
+
+# -----------------------------------------------
+# Detect features with NO valid species
+# -----------------------------------------------
+valid_ids <- species_long %>% distinct(feature_id)
+
+no_valid_species_ids <- setdiff(
+  all_features$feature_id,
+  valid_ids$feature_id
+)
+
+if (length(no_valid_species_ids) > 0) {
+  spp_comp$change_log[
+    spp_comp$feature_id %in% no_valid_species_ids
+  ] <- add_change(
+    spp_comp$change_log[
+      spp_comp$feature_id %in% no_valid_species_ids
+    ],
+    "NO_VALID_SPECIES"
+  )
+}
+
+# -----------------------------------------------
+# Fix outdated species codes
+# -----------------------------------------------
+species_long <- species_long %>%
+  mutate(
+    original_cd = species_cd,
+    species_cd = case_when(
+      toupper(species_cd) == "LS" ~ "L",
+      toupper(species_cd) == "VW" ~ "CW",
+      TRUE ~ toupper(species_cd)
+    )
+  )
+
+changed_codes <- species_long %>%
+  filter(original_cd != species_cd) %>%
+  distinct(feature_id)
+
+if (nrow(changed_codes) > 0) {
+  spp_comp$change_log[
+    spp_comp$feature_id %in% changed_codes$feature_id
+  ] <- add_change(
+    spp_comp$change_log[
+      spp_comp$feature_id %in% changed_codes$feature_id
+    ],
+    "SPECIES_CODE_UPDATED"
+  )
+}
+
+species_long <- species_long %>% select(-original_cd)
+
+# -----------------------------------------------
+# Aggregate duplicate species
+# -----------------------------------------------
+dup_check <- species_long %>%
+  group_by(feature_id, species_cd) %>%
+  tally() %>%
+  filter(n > 1)
+
+if (nrow(dup_check) > 0) {
+  spp_comp$change_log[
+    spp_comp$feature_id %in% dup_check$feature_id
+  ] <- add_change(
+    spp_comp$change_log[
+      spp_comp$feature_id %in% dup_check$feature_id
+    ],
+    "DUPLICATE_SPECIES_AGGREGATED"
+  )
+}
+
+aggregated <- species_long %>%
+  group_by(feature_id, species_cd) %>%
+  summarise(total_percentage = sum(percentage), .groups = "drop")
+
+
+# -----------------------------------------------
+# Order species by descending percentage
+# -----------------------------------------------
+aggregated <- aggregated %>%
+  group_by(feature_id) %>%
+  arrange(desc(total_percentage), .by_group = TRUE) %>%
+  mutate(order = row_number()) %>%
+  ungroup()
+
+# -----------------------------------------------
+# Spread back to wide
+# -----------------------------------------------
+df_species <- aggregated %>%
+  select(feature_id, order, species_cd) %>%
+  pivot_wider(
+    names_from = order,
+    values_from = species_cd,
+    names_prefix = "species_cd_",
+    values_fill = NA
+  )
+
+df_percentage <- aggregated %>%
+  select(feature_id, order, total_percentage) %>%
+  pivot_wider(
+    names_from = order,
+    values_from = total_percentage,
+    names_prefix = "species_pct_",
+    values_fill = 0
+  )
+
+df_merged <- all_features %>%
+  left_join(df_species, by = "feature_id") %>%
+  left_join(df_percentage, by = "feature_id")
+# -----------------------------------------------
+# Ensure pct = 0 when species_cd is NA
+# -----------------------------------------------
+pct_cols <- grep("^species_pct_\\d+$", names(df_merged), value = TRUE)
+cd_cols  <- gsub("pct", "cd", pct_cols)
+
+for (i in seq_along(pct_cols)) {
+  df_merged[[pct_cols[i]]][is.na(df_merged[[cd_cols[i]]])] <- 0
+}
+
+# -----------------------------------------------
+# Normalization
+# -----------------------------------------------
+df_merged$sum_pct <- rowSums(df_merged[pct_cols], na.rm = TRUE)
+
+# Under 100
+idx <- df_merged$sum_pct < 100 & df_merged$sum_pct > 0
+if (any(idx)) {
+  diff_needed <- 100 - df_merged$sum_pct[idx]
+  df_merged$species_pct_1[idx] <- df_merged$species_pct_1[idx] + diff_needed
+  
+  spp_comp$change_log[
+    spp_comp$feature_id %in% df_merged$feature_id[idx]
+  ] <- add_change(
+    spp_comp$change_log[
+      spp_comp$feature_id %in% df_merged$feature_id[idx]
+    ],
+    "UNDER100_INCREASED_SPP1"
+  )
+}
+
+# Over 100
+idx <- df_merged$sum_pct > 100
+if (any(idx)) {
+  scale_factor <- 100 / df_merged$sum_pct[idx]
+  df_merged[idx, pct_cols] <- df_merged[idx, pct_cols] * scale_factor
+  
+  spp_comp$change_log[
+    spp_comp$feature_id %in% df_merged$feature_id[idx]
+  ] <- add_change(
+    spp_comp$change_log[
+      spp_comp$feature_id %in% df_merged$feature_id[idx]
+    ],
+    "OVER100_SCALED_DOWN"
+  )
+}
+
+# -----------------------------------------------
+# Round to 1 decimal
+# -----------------------------------------------
+df_merged[pct_cols] <- round(df_merged[pct_cols], 1)
+
+# -----------------------------------------------
+# Merge change log back
+# -----------------------------------------------
+updated_spp <- df_merged %>%
+  left_join(
+    spp_comp %>% select(feature_id, change_log),
+    by = "feature_id"
+  )
+
+# -----------------------------------------------
+# If no changes occurred
+# -----------------------------------------------
+updated_spp$change_log[is.na(updated_spp$change_log)] <- "NO_ADJUSTMENT"
+
+# -----------------------------------------------
+# Final QA Check
+# -----------------------------------------------
+updated_spp$sum_check <- rowSums(updated_spp[pct_cols], na.rm = TRUE)
+
+issues <- updated_spp %>%
+  filter(abs(sum_check - 100) > 0.2 & sum_check != 0)
+
+if (nrow(issues) > 0) {
+  warning("Some rows deviate from 100% by > 0.2 — inspect.")
+  print(issues)
+}
+
+# -----------------------------------------------
+# Write to database
+# -----------------------------------------------
+dbWriteTable(
+  con,
+  "prov_updated_spp_2024",
+  updated_spp,
+  row.names = FALSE,
+  overwrite = TRUE
+)
+```
+
+### Update  Age & Height
+1. Missing age/height for species 2:
+   - If species_pct_2 > 0 and age/height is missing
+   → copy from species 1
+
+2. Invalid ordering (species 2 > species 1):
+   - If est_age_spp2 > est_age_spp1 → reset to species 1
+   - If est_height_spp2 > est_height_spp1 → reset to species 1
+
+3. Invalid height values:
+   - If est_height_spp2 == -1 → set to 0
+   
+#### Output
+- Table: `prov_updated_ba_age_ht_2024`
+- All updates are tracked in `change_log`
+```{r age&height update, warning=FALSE,echo = TRUE,message=FALSE,eval = FALSE}
+library(tidyr)
+library(dplyr)
+
+query <- "SELECT feature_id,species_pct_2, est_age_spp1,est_height_spp1,est_age_spp2,est_height_spp2 FROM vdyp7_input_layer_2024 where rank_cd_update = 1;"
+layer_attri <- dbGetQuery(con, query)
+
+# -----------------------------------------------
+# Initialize change tracking field
+# -----------------------------------------------
+layer_attri$change_log <- NA_character_
+
+add_change <- function(log, tag) {
+  ifelse(
+    is.na(log),
+    tag,
+    paste(log, tag, sep = " | ")
+  )
+}
+
+
+# -----------------------------------------------
+# Age & Height Fixes for Species 2
+# -----------------------------------------------
+
+# 1. Copy age1 → age2 if age2 missing & species_pct_2 > 0
+idx <- !is.na(layer_attri$species_pct_2) &
+       layer_attri$species_pct_2 > 0 &
+       is.na(layer_attri$est_age_spp2) &
+       !is.na(layer_attri$est_age_spp1)
+
+layer_attri$est_age_spp2[idx] <- layer_attri$est_age_spp1[idx]
+layer_attri$change_log[idx] <- add_change(layer_attri$change_log[idx], "AGE2_missing_assign_AGE1")
+
+idx <- !is.na(layer_attri$species_pct_2) &
+       layer_attri$species_pct_2 > 0 &
+       is.na(layer_attri$est_height_spp2) &
+       !is.na(layer_attri$est_height_spp1)
+
+layer_attri$est_height_spp2[idx] <- layer_attri$est_height_spp1[idx]
+layer_attri$change_log[idx] <- add_change(layer_attri$change_log[idx], "HT2_missing_assign_HT1")
+
+# 2. Fix age2 > age1 → copy age1
+idx <- !is.na(layer_attri$est_age_spp2) &
+       !is.na(layer_attri$est_age_spp1) &
+       layer_attri$est_age_spp2 > layer_attri$est_age_spp1
+
+layer_attri$est_age_spp2[idx] <- layer_attri$est_age_spp1[idx]
+layer_attri$change_log[idx] <- add_change(layer_attri$change_log[idx], "AGE2_gt_AGE1_fixed")
+
+idx <- !is.na(layer_attri$est_height_spp2) &
+       !is.na(layer_attri$est_height_spp1) &
+       layer_attri$est_height_spp2 > layer_attri$est_height_spp1
+
+layer_attri$est_height_spp2[idx] <- layer_attri$est_height_spp1[idx]
+layer_attri$change_log[idx] <- add_change(layer_attri$change_log[idx], "HT2_gt_HT1_fixed")
+
+# 4. Replace height2 = -1 → 0
+idx <- !is.na(layer_attri$est_height_spp2) &
+       layer_attri$est_height_spp2 == -1
+layer_attri$est_height_spp2[idx] <- 0
+layer_attri$change_log[idx] <- add_change(layer_attri$change_log[idx], "HT2_neg1_to_0")
+# -----------------------------------------------
+# If no changes occurred
+# -----------------------------------------------
+layer_attri$change_log[is.na(layer_attri$change_log)] <- "NO_ADJUSTMENT"
+
+dbWriteTable(con, "prov_updated_ba_age_ht_2024", layer_attri, overwrite = TRUE, row.names = FALSE)
+```
+
+
+### review Basal Area, Age & Height
+
+#### Checks Performed
+1. Missing layer identifiers:
+   - layer_level_code is NULL
+   - vdyp7_layer_cd is NULL
+
+2. Basal Area issues:
+   - basal_area_75 is NULL or < 1
+
+3. Age & Height issues:
+   - est_age_spp1 or est_height_spp1 is NULL
+   - est_age_spp1 > 350 (old stands, may not have yields generated)
+   - species_pct_2 > 0 but age/height missing
+
+4. density issues:
+   - stems_per_ha_75 is NULL or < 1
+
+6. Crown closure issues:
+   - crown_closure is NULL or < 1
+
+#### Output
+- Table: `prov_ba_age_ht_checks_2024`
+- Includes all original fields plus `change_log` describing detected issues
+```{r layer attri review, warning=FALSE,echo = TRUE,message=FALSE,eval = FALSE}
+library(tidyr)
+library(dplyr)
+
+query <- "SELECT feature_id,layer_level_code, vdyp7_layer_cd, species_cd_1, species_cd_2, species_pct_2, basal_area_75, stems_per_ha_75, crown_closure, est_age_spp1,est_height_spp1,est_age_spp2,est_height_spp2 FROM vdyp7_input_layer_2024 where rank_cd_update = 1;"
+layer_attri <- dbGetQuery(con, query)
+
+# -----------------------------------------------
+# Initialize change tracking field
+# -----------------------------------------------
+layer_attri$change_log <- NA_character_
+
+add_change <- function(log, tag) {
+  ifelse(
+    is.na(log),
+    tag,
+    paste(log, tag, sep = " | ")
+  )
+}
+
+# layer level code is missing
+idx <- is.na(layer_attri$layer_level_code) 
+layer_attri$change_log[idx] <- add_change(layer_attri$change_log[idx], "missing layer level code")
+
+# vdyp7_layer_cd is missing
+idx <- is.na(layer_attri$vdyp7_layer_cd)
+layer_attri$change_log[idx] <- add_change(layer_attri$change_log[idx], "missing vdyp7_layer_cd")
+
+# species_cd_1 is missing
+idx <- is.na(layer_attri$species_cd_1)
+layer_attri$change_log[idx] <- add_change(layer_attri$change_log[idx], "missing species_cd_1")
+
+# 1. Copy age1 → age2 if age2 missing & species_pct_2 > 0
+idx <- !is.na(layer_attri$species_pct_2) &
+       layer_attri$species_pct_2 > 0 &
+       is.na(layer_attri$est_age_spp2) 
+layer_attri$change_log[idx] <- add_change(layer_attri$change_log[idx], "missing est_age_spp2")
+
+idx <- !is.na(layer_attri$species_pct_2) &
+       layer_attri$species_pct_2 > 0 &
+       is.na(layer_attri$est_height_spp2)
+layer_attri$change_log[idx] <- add_change(layer_attri$change_log[idx], "missing est_height_spp2")
+
+# 2. Fix age2 > age1 → copy age1
+idx <- !is.na(layer_attri$est_age_spp2) &
+       !is.na(layer_attri$est_age_spp1) &
+       layer_attri$est_age_spp2 > layer_attri$est_age_spp1
+
+layer_attri$change_log[idx] <- add_change(layer_attri$change_log[idx], "est_age_spp2 > est_age_spp1")
+
+idx <- !is.na(layer_attri$est_height_spp2) &
+       !is.na(layer_attri$est_height_spp1) &
+       layer_attri$est_height_spp2 > layer_attri$est_height_spp1
+
+layer_attri$change_log[idx] <- add_change(layer_attri$change_log[idx], "est_height_spp2 > est_height_spp1")
+
+# 4. Replace height2 = -1 → 0
+idx <- !is.na(layer_attri$est_height_spp2) &
+       layer_attri$est_height_spp2 == -1
+
+layer_attri$change_log[idx] <- add_change(layer_attri$change_log[idx], "est_height_spp2 < 0")
+
+# Basal Area < 1
+idx <- is.na(layer_attri$basal_area_75) |
+       layer_attri$basal_area_75 < 1
+layer_attri$change_log[idx] <- add_change(layer_attri$change_log[idx], "BA null or lower than 1")
+
+# age1 or height 1 is null
+idx <- !is.na(layer_attri$species_cd_1) &
+  is.na(layer_attri$est_height_spp1) 
+layer_attri$change_log[idx] <- add_change(layer_attri$change_log[idx], "missing est_height_spp1")
+
+idx <- !is.na(layer_attri$species_cd_1) &
+       is.na(layer_attri$est_age_spp1)
+layer_attri$change_log[idx] <- add_change(layer_attri$change_log[idx], "missing est_age_spp1")
+
+# # # having spp2 but age2 or height 2 is null
+# idx <- layer_attri$species_pct_2 > 0 &
+#        (is.na(layer_attri$est_height_spp2) |
+#         is.na(layer_attri$est_age_spp2))
+# layer_attri$change_log[idx] <- add_change(layer_attri$change_log[idx], "missing age2 or ht2")
+
+# old age
+idx <- !is.na(layer_attri$est_age_spp1) &
+       layer_attri$est_age_spp1 > 350
+layer_attri$change_log[idx] <- add_change(layer_attri$change_log[idx], "old age > 350")
+
+# SPH null
+idx <- is.na(layer_attri$stems_per_ha_75) |
+       layer_attri$stems_per_ha_75 < 1
+layer_attri$change_log[idx] <- add_change(layer_attri$change_log[idx], "stems_per_ha_75 null or lower than 1")
+
+# cc null
+idx <- is.na(layer_attri$crown_closure) |
+       layer_attri$crown_closure < 1
+layer_attri$change_log[idx] <- add_change(layer_attri$change_log[idx], "crown_closure null or lower than 1")
+
+dbWriteTable(con, "prov_ba_age_ht_checks_2024", layer_attri, overwrite = TRUE, row.names = FALSE)
+```
+
+### Update Other-Veg comp
+
+1. Missing Data Handling:
+   - Replace all numeric NA values with 0
+   - Flag missing BEC zone codes
+
+2. Vegetation Cover Adjustment:
+   - If shrub_crown_closure + herb_cover_pct + bryoid_cover_pct > 100:
+     → calculate scaling ratio = 100 / total
+     → apply proportional reduction using floor()
+     → log as "VEG_SCALED_DOWN"
+
+3. Non-Vegetation Cover Adjustment:
+   - If sum of non_veg_cover_pct_1–3 > 100:
+     → scale proportionally using same method
+     → log as "NONVEG_SCALED_DOWN"
+
+4. Land Cover Adjustment:
+   - If sum of land_cover_pct_1–3 > 100:
+     → scale proportionally
+     → log as "LANDCOVER_SCALED_DOWN"
+
+5. Ratio Tracking:
+   - Store applied scaling ratios for:
+     - vegetation (ratio_veg)
+     - non-vegetation (ratio_non_veg)
+     - land cover (ratio_land)
+
+6. Change Logging:
+   - All adjustments tracked in `change_log`
+   - Records with no changes labeled as "NO_ADJUSTMENT"
+
+#### Output
+- Table: `prov_updated_other_veg_2024`
+- Includes adjusted values, totals, ratios, and change tracking
+
+```{r other_veg, warning=FALSE,echo = TRUE,message=FALSE,eval = FALSE}
+library(dplyr)
+library(DBI)
+
+query <- "
+SELECT feature_id,
+       bec_zone_code,
+       shrub_crown_closure, herb_cover_pct, bryoid_cover_pct,
+       non_veg_cover_pct_1, non_veg_cover_pct_2, non_veg_cover_pct_3,
+       land_cover_pct_1, land_cover_pct_2, land_cover_pct_3
+FROM vdyp7_input_poly_2024;
+"
+
+df <- dbGetQuery(con, query)
+
+# -----------------------------------------------
+# Initialize change tracking field
+# -----------------------------------------------
+df$change_log <- NA_character_
+
+add_change <- function(log, tag) {
+  ifelse(
+    is.na(log),
+    tag,
+    paste(log, tag, sep = " | ")
+  )
+}
+
+# -----------------------------------------------
+# Check missing BEC zone
+# -----------------------------------------------
+bec_missing_idx <- is.na(df$bec_zone_code) |
+                   trimws(df$bec_zone_code) == ""
+
+if (any(bec_missing_idx)) {
+  df$change_log[bec_missing_idx] <-
+    add_change(df$change_log[bec_missing_idx], "MISSING_BEC")
+}
+
+# -----------------------------------------------
+# Replace numeric NA with 0
+# -----------------------------------------------
+numeric_cols <- setdiff(names(df), c("feature_id", "bec_zone_code", "change_log"))
+df[, numeric_cols][is.na(df[, numeric_cols])] <- 0
+
+# -----------------------------------------------
+# Vegetation Layer Scaling
+# -----------------------------------------------
+df$total_veg <- df$shrub_crown_closure +
+                df$herb_cover_pct +
+                df$bryoid_cover_pct
+
+veg_idx <- df$total_veg > 100
+
+if (any(veg_idx)) {
+  ratio <- 100 / df$total_veg[veg_idx]
+  
+  df$shrub_crown_closure[veg_idx] <-
+    floor(df$shrub_crown_closure[veg_idx] * ratio)
+  
+  df$herb_cover_pct[veg_idx] <-
+    floor(df$herb_cover_pct[veg_idx] * ratio)
+  
+  df$bryoid_cover_pct[veg_idx] <-
+    floor(df$bryoid_cover_pct[veg_idx] * ratio)
+  
+  df$change_log[veg_idx] <-
+    add_change(df$change_log[veg_idx], "VEG_SCALED_DOWN")
+}
+
+df$ratio_veg <- ifelse(df$total_veg > 100,
+                       100 / df$total_veg,
+                       1)
+
+# -----------------------------------------------
+# Non-Vegetated Cover Scaling
+# -----------------------------------------------
+df$total_non_veg <- df$non_veg_cover_pct_1 +
+                    df$non_veg_cover_pct_2 +
+                    df$non_veg_cover_pct_3
+
+nonveg_idx <- df$total_non_veg > 100
+
+if (any(nonveg_idx)) {
+  ratio <- 100 / df$total_non_veg[nonveg_idx]
+  
+  df$non_veg_cover_pct_1[nonveg_idx] <-
+    floor(df$non_veg_cover_pct_1[nonveg_idx] * ratio)
+  
+  df$non_veg_cover_pct_2[nonveg_idx] <-
+    floor(df$non_veg_cover_pct_2[nonveg_idx] * ratio)
+  
+  df$non_veg_cover_pct_3[nonveg_idx] <-
+    floor(df$non_veg_cover_pct_3[nonveg_idx] * ratio)
+  
+  df$change_log[nonveg_idx] <-
+    add_change(df$change_log[nonveg_idx], "NONVEG_SCALED_DOWN")
+}
+
+df$ratio_non_veg <- ifelse(df$total_non_veg > 100,
+                           100 / df$total_non_veg,
+                           1)
+
+# -----------------------------------------------
+# Land Cover Scaling
+# -----------------------------------------------
+df$total_land <- df$land_cover_pct_1 +
+                 df$land_cover_pct_2 +
+                 df$land_cover_pct_3
+
+land_idx <- df$total_land > 100
+
+if (any(land_idx)) {
+  ratio <- 100 / df$total_land[land_idx]
+  
+  df$land_cover_pct_1[land_idx] <-
+    floor(df$land_cover_pct_1[land_idx] * ratio)
+  
+  df$land_cover_pct_2[land_idx] <-
+    floor(df$land_cover_pct_2[land_idx] * ratio)
+  
+  df$land_cover_pct_3[land_idx] <-
+    floor(df$land_cover_pct_3[land_idx] * ratio)
+  
+  df$change_log[land_idx] <-
+    add_change(df$change_log[land_idx], "LANDCOVER_SCALED_DOWN")
+}
+
+df$ratio_land <- ifelse(df$total_land > 100,
+                        100 / df$total_land,
+                        1)
+
+# -----------------------------------------------
+# If no changes occurred
+# -----------------------------------------------
+df$change_log[is.na(df$change_log)] <- "NO_ADJUSTMENT"
+
+# -----------------------------------------------
+# Final Output
+# -----------------------------------------------
+updated_df <- df %>%
+  select(
+    feature_id,
+    bec_zone_code,
+    shrub_crown_closure, herb_cover_pct, bryoid_cover_pct,
+    non_veg_cover_pct_1, non_veg_cover_pct_2, non_veg_cover_pct_3,
+    land_cover_pct_1, land_cover_pct_2, land_cover_pct_3,
+    total_veg, ratio_veg,
+    total_non_veg, ratio_non_veg,
+    total_land, ratio_land,
+    change_log
+  )
+
+dbWriteTable(
+  con,
+  "prov_updated_other_veg_2024",
+  updated_df,
+  overwrite = TRUE,
+  row.names = FALSE
+)
+```
