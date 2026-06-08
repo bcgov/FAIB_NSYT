@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Provincial Yield table - NSYT and MSYT combined table | provincial NSYT production process and assessment</title>
+  <meta name="description" content="Chapter 5 Provincial Yield table - NSYT and MSYT combined table | provincial NSYT production process and assessment" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Provincial Yield table - NSYT and MSYT combined table | provincial NSYT production process and assessment" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Provincial Yield table - NSYT and MSYT combined table | provincial NSYT production process and assessment" />
+  
+  
+  
+
+<meta name="author" content="Shuyan Jiang, Kelly Izzard, Yingbing Chen" />
+
+
+<meta name="date" content="2026-06-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="vdyp-projection-parameters-and-final-yield-table-development.html"/>
+<link rel="next" href="comparison-with-vri-r1.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">provincial NSYT production process and assessment</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="vdyp-inputs-preparation.html"><a href="vdyp-inputs-preparation.html"><i class="fa fa-check"></i><b>3</b> VDYP inputs preparation</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="vdyp-inputs-preparation.html"><a href="vdyp-inputs-preparation.html#load-input-data"><i class="fa fa-check"></i><b>3.1</b> load input data</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="vdyp-inputs-preparation.html"><a href="vdyp-inputs-preparation.html#postgres-database-connection"><i class="fa fa-check"></i><b>3.1.1</b> postgres database connection</a></li>
+<li class="chapter" data-level="3.1.2" data-path="vdyp-inputs-preparation.html"><a href="vdyp-inputs-preparation.html#load-2024-vdyp-input-layer-table-to-postgres"><i class="fa fa-check"></i><b>3.1.2</b> Load 2024 VDYP input layer table to postgres</a></li>
+<li class="chapter" data-level="3.1.3" data-path="vdyp-inputs-preparation.html"><a href="vdyp-inputs-preparation.html#load-2024-vdyp-input-polygon-table-to-postgres"><i class="fa fa-check"></i><b>3.1.3</b> Load 2024 VDYP input polygon table to postgres</a></li>
+<li class="chapter" data-level="3.1.4" data-path="vdyp-inputs-preparation.html"><a href="vdyp-inputs-preparation.html#load-rank1-2024"><i class="fa fa-check"></i><b>3.1.4</b> Load rank1 2024</a></li>
+<li class="chapter" data-level="3.1.5" data-path="vdyp-inputs-preparation.html"><a href="vdyp-inputs-preparation.html#load-tsa-list"><i class="fa fa-check"></i><b>3.1.5</b> Load TSA LIST</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="vdyp-inputs-preparation.html"><a href="vdyp-inputs-preparation.html#process-input-data"><i class="fa fa-check"></i><b>3.2</b> Process input data</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="vdyp-inputs-preparation.html"><a href="vdyp-inputs-preparation.html#vri-project-count-for-feature-in-list-but-not-in-polygon"><i class="fa fa-check"></i><b>3.2.1</b> VRI Project count for feature in list but not in polygon</a></li>
+<li class="chapter" data-level="3.2.2" data-path="vdyp-inputs-preparation.html"><a href="vdyp-inputs-preparation.html#polygons-without-r1-layer-assigned"><i class="fa fa-check"></i><b>3.2.2</b> Polygons without R1 layer assigned</a></li>
+<li class="chapter" data-level="3.2.3" data-path="vdyp-inputs-preparation.html"><a href="vdyp-inputs-preparation.html#check-fix-species-comp-for-rank1"><i class="fa fa-check"></i><b>3.2.3</b> check &amp; fix species comp for rank1</a></li>
+<li class="chapter" data-level="3.2.4" data-path="vdyp-inputs-preparation.html"><a href="vdyp-inputs-preparation.html#update-age-height"><i class="fa fa-check"></i><b>3.2.4</b> Update Age &amp; Height</a></li>
+<li class="chapter" data-level="3.2.5" data-path="vdyp-inputs-preparation.html"><a href="vdyp-inputs-preparation.html#review-basal-area-age-height"><i class="fa fa-check"></i><b>3.2.5</b> review Basal Area, Age &amp; Height</a></li>
+<li class="chapter" data-level="3.2.6" data-path="vdyp-inputs-preparation.html"><a href="vdyp-inputs-preparation.html#update-other-veg-comp"><i class="fa fa-check"></i><b>3.2.6</b> Update Other-Veg comp</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="vdyp-projection-parameters-and-final-yield-table-development.html"><a href="vdyp-projection-parameters-and-final-yield-table-development.html"><i class="fa fa-check"></i><b>4</b> VDYP projection parameters and final yield table development</a></li>
+<li class="chapter" data-level="5" data-path="provincial-yield-table---nsyt-and-msyt-combined-table.html"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html"><i class="fa fa-check"></i><b>5</b> Provincial Yield table - NSYT and MSYT combined table</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="provincial-yield-table---nsyt-and-msyt-combined-table.html"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#overview"><i class="fa fa-check"></i><b>5.1</b> Overview</a></li>
+<li class="chapter" data-level="5.2" data-path="provincial-yield-table---nsyt-and-msyt-combined-table.html"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#define-deciduous-species"><i class="fa fa-check"></i><b>5.2</b> Define Deciduous Species</a></li>
+<li class="chapter" data-level="5.3" data-path="provincial-yield-table---nsyt-and-msyt-combined-table.html"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#load-vdyp-yield-table"><i class="fa fa-check"></i><b>5.3</b> Load VDYP Yield Table</a></li>
+<li class="chapter" data-level="5.4" data-path="provincial-yield-table---nsyt-and-msyt-combined-table.html"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#extract-species-codes"><i class="fa fa-check"></i><b>5.4</b> Extract Species Codes</a></li>
+<li class="chapter" data-level="5.5" data-path="provincial-yield-table---nsyt-and-msyt-combined-table.html"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#extract-projected-volumes"><i class="fa fa-check"></i><b>5.5</b> Extract Projected Volumes</a></li>
+<li class="chapter" data-level="5.6" data-path="provincial-yield-table---nsyt-and-msyt-combined-table.html"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#calculate-conifer-and-deciduous-volume"><i class="fa fa-check"></i><b>5.6</b> Calculate Conifer and Deciduous Volume</a></li>
+<li class="chapter" data-level="5.7" data-path="provincial-yield-table---nsyt-and-msyt-combined-table.html"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#convert-volume-table-to-wide-format"><i class="fa fa-check"></i><b>5.7</b> Convert Volume Table to Wide Format</a></li>
+<li class="chapter" data-level="5.8" data-path="provincial-yield-table---nsyt-and-msyt-combined-table.html"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#load-msyt-tables"><i class="fa fa-check"></i><b>5.8</b> Load MSYT Tables</a></li>
+<li class="chapter" data-level="5.9" data-path="provincial-yield-table---nsyt-and-msyt-combined-table.html"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#extend-msyt-curves-to-age-250"><i class="fa fa-check"></i><b>5.9</b> Extend MSYT Curves to Age 250</a></li>
+<li class="chapter" data-level="5.10" data-path="provincial-yield-table---nsyt-and-msyt-combined-table.html"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#reorder-msyt-columns"><i class="fa fa-check"></i><b>5.10</b> Reorder MSYT Columns</a></li>
+<li class="chapter" data-level="5.11" data-path="provincial-yield-table---nsyt-and-msyt-combined-table.html"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#build-msyt-output"><i class="fa fa-check"></i><b>5.11</b> Build MSYT Output</a></li>
+<li class="chapter" data-level="5.12" data-path="provincial-yield-table---nsyt-and-msyt-combined-table.html"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#load-height-ratios"><i class="fa fa-check"></i><b>5.12</b> Load Height Ratios</a></li>
+<li class="chapter" data-level="5.13" data-path="provincial-yield-table---nsyt-and-msyt-combined-table.html"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#calculate-vdyp-heights"><i class="fa fa-check"></i><b>5.13</b> Calculate VDYP Heights</a></li>
+<li class="chapter" data-level="5.14" data-path="provincial-yield-table---nsyt-and-msyt-combined-table.html"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#build-vdyp-output"><i class="fa fa-check"></i><b>5.14</b> Build VDYP Output</a></li>
+<li class="chapter" data-level="5.15" data-path="provincial-yield-table---nsyt-and-msyt-combined-table.html"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#export-final-yield-table"><i class="fa fa-check"></i><b>5.15</b> Export Final Yield Table</a></li>
+<li class="chapter" data-level="5.16" data-path="provincial-yield-table---nsyt-and-msyt-combined-table.html"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#qaqc-checks"><i class="fa fa-check"></i><b>5.16</b> QA/QC Checks</a></li>
+<li class="chapter" data-level="5.17" data-path="provincial-yield-table---nsyt-and-msyt-combined-table.html"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#review-nsyt-zero-volume-records"><i class="fa fa-check"></i><b>5.17</b> Review NSYT Zero-Volume Records</a></li>
+<li class="chapter" data-level="5.18" data-path="provincial-yield-table---nsyt-and-msyt-combined-table.html"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#review-msyt-zero-volume-records"><i class="fa fa-check"></i><b>5.18</b> Review MSYT Zero-Volume Records</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="comparison-with-vri-r1.html"><a href="comparison-with-vri-r1.html"><i class="fa fa-check"></i><b>6</b> Comparison with VRI R1</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="comparison-with-vri-r1.html"><a href="comparison-with-vri-r1.html#get-data"><i class="fa fa-check"></i><b>6.1</b> Get data</a></li>
+<li class="chapter" data-level="6.2" data-path="comparison-with-vri-r1.html"><a href="comparison-with-vri-r1.html#closest-match"><i class="fa fa-check"></i><b>6.2</b> Closest Match</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="comparison-with-combined-mulitple-layers-projection.html"><a href="comparison-with-combined-mulitple-layers-projection.html"><i class="fa fa-check"></i><b>7</b> comparison with combined mulitple layers’ projection</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="comparison-with-combined-mulitple-layers-projection.html"><a href="comparison-with-combined-mulitple-layers-projection.html#set1.-r1-only-vs-multilayer-set1-containing-p-layer-and-at-least-one-other-layer-that-is-not-d-layer"><i class="fa fa-check"></i><b>7.1</b> set1. r1 only vs multilayer set1 (containing P layer and at least one other layer that is not D layer)</a></li>
+<li class="chapter" data-level="7.2" data-path="comparison-with-combined-mulitple-layers-projection.html"><a href="comparison-with-combined-mulitple-layers-projection.html#set2.-r1-only-vs-multilayer-set2-only-containing-p-layer-and-d-layer"><i class="fa fa-check"></i><b>7.2</b> set2. r1 only vs multilayer set2 (only containing P layer and D layer)</a></li>
+<li class="chapter" data-level="7.3" data-path="comparison-with-combined-mulitple-layers-projection.html"><a href="comparison-with-combined-mulitple-layers-projection.html#overall---one-layer-polygons-muliple-layer-polygons-set1set2"><i class="fa fa-check"></i><b>7.3</b> Overall - one-layer polygons + muliple-layer polygons (set1+set2)</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">provincial NSYT production process and assessment</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="provincial-yield-table---nsyt-and-msyt-combined-table" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Provincial Yield table - NSYT and MSYT combined table<a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#provincial-yield-table---nsyt-and-msyt-combined-table" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="overview" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Overview<a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#overview" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This script generates a combined yield table containing:</p>
+<ul>
+<li>Conifer merchantable volume (<code>MVcon_*</code>)</li>
+<li>Deciduous merchantable volume (<code>MVdec_*</code>)</li>
+<li>Conifer dominant height (<code>HTcon_*</code>)</li>
+<li>Deciduous dominant height (<code>HTdec_*</code>)</li>
+</ul>
+<p>The workflow combines:</p>
+<ol style="list-style-type: decimal">
+<li>VDYP-based yield curves (NSYT workflow)</li>
+<li>MSYT yield curves</li>
+</ol>
+<p>The final output is exported as a single yield table for downstream modeling.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb13-1" tabindex="-1"></a><span class="do">## Load Libraries</span></span>
+<span id="cb13-2"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb13-2" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb13-3"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb13-3" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb13-4"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb13-4" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span></code></pre></div>
+</div>
+<div id="define-deciduous-species" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Define Deciduous Species<a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#define-deciduous-species" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Species in this list are treated as deciduous.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb14-1" tabindex="-1"></a>decid <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb14-2"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb14-2" tabindex="-1"></a>  <span class="st">&quot;AC&quot;</span>,<span class="st">&quot;ACB&quot;</span>,<span class="st">&quot;ACT&quot;</span>,<span class="st">&quot;AT&quot;</span>,<span class="st">&quot;AD&quot;</span>,<span class="st">&quot;AX&quot;</span>,</span>
+<span id="cb14-3"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb14-3" tabindex="-1"></a>  <span class="st">&quot;DR&quot;</span>,<span class="st">&quot;E&quot;</span>,<span class="st">&quot;EA&quot;</span>,<span class="st">&quot;EB&quot;</span>,<span class="st">&quot;EE&quot;</span>,<span class="st">&quot;EP&quot;</span>,<span class="st">&quot;ES&quot;</span>,<span class="st">&quot;EW&quot;</span>,</span>
+<span id="cb14-4"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb14-4" tabindex="-1"></a>  <span class="st">&quot;EXP&quot;</span>,<span class="st">&quot;XH&quot;</span>,<span class="st">&quot;G&quot;</span>,<span class="st">&quot;GP&quot;</span>,<span class="st">&quot;KC&quot;</span>,<span class="st">&quot;L&quot;</span>,<span class="st">&quot;LA&quot;</span>,<span class="st">&quot;LT&quot;</span>,</span>
+<span id="cb14-5"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb14-5" tabindex="-1"></a>  <span class="st">&quot;LW&quot;</span>,<span class="st">&quot;M&quot;</span>,<span class="st">&quot;MB&quot;</span>,<span class="st">&quot;MN&quot;</span>,<span class="st">&quot;MV&quot;</span>,<span class="st">&quot;Q&quot;</span>,<span class="st">&quot;QG&quot;</span>,<span class="st">&quot;XH&quot;</span>,</span>
+<span id="cb14-6"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb14-6" tabindex="-1"></a>  <span class="st">&quot;WT&quot;</span>,<span class="st">&quot;WS&quot;</span>,<span class="st">&quot;WP&quot;</span>,<span class="st">&quot;WD&quot;</span>,<span class="st">&quot;WB&quot;</span>,<span class="st">&quot;WA&quot;</span>,<span class="st">&quot;W&quot;</span>,</span>
+<span id="cb14-7"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb14-7" tabindex="-1"></a>  <span class="st">&quot;VP&quot;</span>,<span class="st">&quot;VB&quot;</span>,<span class="st">&quot;V&quot;</span>,<span class="st">&quot;U&quot;</span>,<span class="st">&quot;RA&quot;</span></span>
+<span id="cb14-8"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb14-8" tabindex="-1"></a>)</span></code></pre></div>
+<p><code>NoDecidVol_calculator()</code> calculates conifer-only projected volume by removing deciduous species from VDYP projected species volumes.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-1" tabindex="-1"></a>NoDecidVol_calculator <span class="ot">&lt;-</span> <span class="cf">function</span> (sp_list,</span>
+<span id="cb15-2"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-2" tabindex="-1"></a>                                   vol_list,</span>
+<span id="cb15-3"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-3" tabindex="-1"></a>                                   decidsp,</span>
+<span id="cb15-4"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-4" tabindex="-1"></a>                                   <span class="at">multilayer =</span> <span class="cn">FALSE</span>) {</span>
+<span id="cb15-5"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-5" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-6" tabindex="-1"></a>  <span class="co"># Standardize species slot names</span></span>
+<span id="cb15-7"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-7" tabindex="-1"></a>  sp_list[spcode <span class="sc">%in%</span> <span class="st">&quot;SPECIES_1_CODE&quot;</span>, <span class="st">`</span><span class="at">:=</span><span class="st">`</span>(spcode, <span class="st">&quot;sp1&quot;</span>)]</span>
+<span id="cb15-8"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-8" tabindex="-1"></a>  sp_list[spcode <span class="sc">%in%</span> <span class="st">&quot;SPECIES_2_CODE&quot;</span>, <span class="st">`</span><span class="at">:=</span><span class="st">`</span>(spcode, <span class="st">&quot;sp2&quot;</span>)]</span>
+<span id="cb15-9"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-9" tabindex="-1"></a>  sp_list[spcode <span class="sc">%in%</span> <span class="st">&quot;SPECIES_3_CODE&quot;</span>, <span class="st">`</span><span class="at">:=</span><span class="st">`</span>(spcode, <span class="st">&quot;sp3&quot;</span>)]</span>
+<span id="cb15-10"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-10" tabindex="-1"></a>  sp_list[spcode <span class="sc">%in%</span> <span class="st">&quot;SPECIES_4_CODE&quot;</span>, <span class="st">`</span><span class="at">:=</span><span class="st">`</span>(spcode, <span class="st">&quot;sp4&quot;</span>)]</span>
+<span id="cb15-11"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-11" tabindex="-1"></a>  sp_list[spcode <span class="sc">%in%</span> <span class="st">&quot;SPECIES_5_CODE&quot;</span>, <span class="st">`</span><span class="at">:=</span><span class="st">`</span>(spcode, <span class="st">&quot;sp5&quot;</span>)]</span>
+<span id="cb15-12"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-12" tabindex="-1"></a>  sp_list[spcode <span class="sc">%in%</span> <span class="st">&quot;SPECIES_6_CODE&quot;</span>, <span class="st">`</span><span class="at">:=</span><span class="st">`</span>(spcode, <span class="st">&quot;sp6&quot;</span>)]</span>
+<span id="cb15-13"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-13" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-14" tabindex="-1"></a>  <span class="co"># Remove deciduous species</span></span>
+<span id="cb15-15"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-15" tabindex="-1"></a>  sp_list2 <span class="ot">&lt;-</span> sp_list[</span>
+<span id="cb15-16"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-16" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(sp) <span class="sc">&amp;</span></span>
+<span id="cb15-17"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-17" tabindex="-1"></a>      sp <span class="sc">!=</span> <span class="st">&quot;&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb15-18"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-18" tabindex="-1"></a>      <span class="sc">!</span>sp <span class="sc">%in%</span> decidsp</span>
+<span id="cb15-19"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-19" tabindex="-1"></a>  ]</span>
+<span id="cb15-20"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-20" tabindex="-1"></a></span>
+<span id="cb15-21"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-21" tabindex="-1"></a>  <span class="co"># Replace NA projected volumes with 0</span></span>
+<span id="cb15-22"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-22" tabindex="-1"></a>  vol_list[<span class="fu">is.na</span>(PRJ_SP1_VOL_DWB), <span class="st">`</span><span class="at">:=</span><span class="st">`</span>(PRJ_SP1_VOL_DWB, <span class="dv">0</span>)]</span>
+<span id="cb15-23"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-23" tabindex="-1"></a>  vol_list[<span class="fu">is.na</span>(PRJ_SP2_VOL_DWB), <span class="st">`</span><span class="at">:=</span><span class="st">`</span>(PRJ_SP2_VOL_DWB, <span class="dv">0</span>)]</span>
+<span id="cb15-24"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-24" tabindex="-1"></a>  vol_list[<span class="fu">is.na</span>(PRJ_SP3_VOL_DWB), <span class="st">`</span><span class="at">:=</span><span class="st">`</span>(PRJ_SP3_VOL_DWB, <span class="dv">0</span>)]</span>
+<span id="cb15-25"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-25" tabindex="-1"></a>  vol_list[<span class="fu">is.na</span>(PRJ_SP4_VOL_DWB), <span class="st">`</span><span class="at">:=</span><span class="st">`</span>(PRJ_SP4_VOL_DWB, <span class="dv">0</span>)]</span>
+<span id="cb15-26"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-26" tabindex="-1"></a>  vol_list[<span class="fu">is.na</span>(PRJ_SP5_VOL_DWB), <span class="st">`</span><span class="at">:=</span><span class="st">`</span>(PRJ_SP5_VOL_DWB, <span class="dv">0</span>)]</span>
+<span id="cb15-27"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-27" tabindex="-1"></a>  vol_list[<span class="fu">is.na</span>(PRJ_SP6_VOL_DWB), <span class="st">`</span><span class="at">:=</span><span class="st">`</span>(PRJ_SP6_VOL_DWB, <span class="dv">0</span>)]</span>
+<span id="cb15-28"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-28" tabindex="-1"></a></span>
+<span id="cb15-29"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-29" tabindex="-1"></a>  <span class="co"># Convert projected species volumes to long format</span></span>
+<span id="cb15-30"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-30" tabindex="-1"></a>    vol_list2 <span class="ot">&lt;-</span> <span class="fu">melt</span>(</span>
+<span id="cb15-31"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-31" tabindex="-1"></a>      vol_list,</span>
+<span id="cb15-32"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-32" tabindex="-1"></a>      <span class="at">id.vars =</span> <span class="fu">c</span>(<span class="st">&quot;FEATURE_ID&quot;</span>, <span class="st">&quot;PRJ_TOTAL_AGE&quot;</span>),</span>
+<span id="cb15-33"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-33" tabindex="-1"></a>      <span class="at">measure.vars =</span> <span class="fu">c</span>(</span>
+<span id="cb15-34"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-34" tabindex="-1"></a>        <span class="st">&quot;PRJ_SP1_VOL_DWB&quot;</span>,</span>
+<span id="cb15-35"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-35" tabindex="-1"></a>        <span class="st">&quot;PRJ_SP2_VOL_DWB&quot;</span>,</span>
+<span id="cb15-36"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-36" tabindex="-1"></a>        <span class="st">&quot;PRJ_SP3_VOL_DWB&quot;</span>,</span>
+<span id="cb15-37"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-37" tabindex="-1"></a>        <span class="st">&quot;PRJ_SP4_VOL_DWB&quot;</span>,</span>
+<span id="cb15-38"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-38" tabindex="-1"></a>        <span class="st">&quot;PRJ_SP5_VOL_DWB&quot;</span>,</span>
+<span id="cb15-39"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-39" tabindex="-1"></a>        <span class="st">&quot;PRJ_SP6_VOL_DWB&quot;</span></span>
+<span id="cb15-40"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-40" tabindex="-1"></a>      ),</span>
+<span id="cb15-41"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-41" tabindex="-1"></a>      <span class="at">variable.name =</span> <span class="st">&quot;spcode&quot;</span>,</span>
+<span id="cb15-42"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-42" tabindex="-1"></a>      <span class="at">value.name =</span> <span class="st">&quot;vol&quot;</span></span>
+<span id="cb15-43"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-43" tabindex="-1"></a>    )</span>
+<span id="cb15-44"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-44" tabindex="-1"></a></span>
+<span id="cb15-45"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-45" tabindex="-1"></a>  <span class="co"># Standardize projected volume species names</span></span>
+<span id="cb15-46"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-46" tabindex="-1"></a>  vol_list2[spcode <span class="sc">%in%</span> <span class="st">&quot;PRJ_SP1_VOL_DWB&quot;</span>, <span class="st">`</span><span class="at">:=</span><span class="st">`</span>(spcode, <span class="st">&quot;sp1&quot;</span>)]</span>
+<span id="cb15-47"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-47" tabindex="-1"></a>  vol_list2[spcode <span class="sc">%in%</span> <span class="st">&quot;PRJ_SP2_VOL_DWB&quot;</span>, <span class="st">`</span><span class="at">:=</span><span class="st">`</span>(spcode, <span class="st">&quot;sp2&quot;</span>)]</span>
+<span id="cb15-48"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-48" tabindex="-1"></a>  vol_list2[spcode <span class="sc">%in%</span> <span class="st">&quot;PRJ_SP3_VOL_DWB&quot;</span>, <span class="st">`</span><span class="at">:=</span><span class="st">`</span>(spcode, <span class="st">&quot;sp3&quot;</span>)]</span>
+<span id="cb15-49"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-49" tabindex="-1"></a>  vol_list2[spcode <span class="sc">%in%</span> <span class="st">&quot;PRJ_SP4_VOL_DWB&quot;</span>, <span class="st">`</span><span class="at">:=</span><span class="st">`</span>(spcode, <span class="st">&quot;sp4&quot;</span>)]</span>
+<span id="cb15-50"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-50" tabindex="-1"></a>  vol_list2[spcode <span class="sc">%in%</span> <span class="st">&quot;PRJ_SP5_VOL_DWB&quot;</span>, <span class="st">`</span><span class="at">:=</span><span class="st">`</span>(spcode, <span class="st">&quot;sp5&quot;</span>)]</span>
+<span id="cb15-51"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-51" tabindex="-1"></a>  vol_list2[spcode <span class="sc">%in%</span> <span class="st">&quot;PRJ_SP6_VOL_DWB&quot;</span>, <span class="st">`</span><span class="at">:=</span><span class="st">`</span>(spcode, <span class="st">&quot;sp6&quot;</span>)]</span>
+<span id="cb15-52"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-52" tabindex="-1"></a></span>
+<span id="cb15-53"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-53" tabindex="-1"></a>  <span class="co"># Merge species and volume tables</span></span>
+<span id="cb15-54"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-54" tabindex="-1"></a>    all <span class="ot">&lt;-</span> <span class="fu">merge</span>(</span>
+<span id="cb15-55"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-55" tabindex="-1"></a>      sp_list2,</span>
+<span id="cb15-56"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-56" tabindex="-1"></a>      vol_list2,</span>
+<span id="cb15-57"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-57" tabindex="-1"></a>      <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;FEATURE_ID&quot;</span>, <span class="st">&quot;spcode&quot;</span>),</span>
+<span id="cb15-58"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-58" tabindex="-1"></a>      <span class="at">all.x =</span> <span class="cn">TRUE</span></span>
+<span id="cb15-59"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-59" tabindex="-1"></a>    )</span>
+<span id="cb15-60"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-60" tabindex="-1"></a></span>
+<span id="cb15-61"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-61" tabindex="-1"></a>    all2 <span class="ot">&lt;-</span> all[</span>
+<span id="cb15-62"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-62" tabindex="-1"></a>      ,</span>
+<span id="cb15-63"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-63" tabindex="-1"></a>      .(<span class="at">PRJ_VOL_DWB_conifer =</span> <span class="fu">sum</span>(vol, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb15-64"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-64" tabindex="-1"></a>      by <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;FEATURE_ID&quot;</span>, <span class="st">&quot;PRJ_TOTAL_AGE&quot;</span>)</span>
+<span id="cb15-65"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-65" tabindex="-1"></a>    ]</span>
+<span id="cb15-66"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-66" tabindex="-1"></a></span>
+<span id="cb15-67"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-67" tabindex="-1"></a>  <span class="fu">return</span>(all2)</span>
+<span id="cb15-68"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb15-68" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="load-vdyp-yield-table" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Load VDYP Yield Table<a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#load-vdyp-yield-table" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb16-1" tabindex="-1"></a>yld <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(</span>
+<span id="cb16-2"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb16-2" tabindex="-1"></a>  <span class="st">&quot;D:</span><span class="sc">\\</span><span class="st">data</span><span class="sc">\\</span><span class="st">projects</span><span class="sc">\\</span><span class="st">VDYP</span><span class="sc">\\</span><span class="st">VDYP</span><span class="sc">\\</span><span class="st">2024</span><span class="sc">\\</span><span class="st">prov</span><span class="sc">\\</span><span class="st">VDYP7RunParallel</span><span class="sc">\\</span><span class="st">prov_lesschanges_nsyt_yieldtable.rds&quot;</span></span>
+<span id="cb16-3"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb16-3" tabindex="-1"></a>)</span>
+<span id="cb16-4"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb16-4" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb16-5" tabindex="-1"></a><span class="fu">setDT</span>(yld)</span></code></pre></div>
+</div>
+<div id="extract-species-codes" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Extract Species Codes<a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#extract-species-codes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Convert species fields into long format.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb17-1" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">unique</span>(</span>
+<span id="cb17-2"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb17-2" tabindex="-1"></a>  yld[, .(</span>
+<span id="cb17-3"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb17-3" tabindex="-1"></a>    FEATURE_ID,</span>
+<span id="cb17-4"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb17-4" tabindex="-1"></a>    SPECIES_1_CODE,</span>
+<span id="cb17-5"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb17-5" tabindex="-1"></a>    SPECIES_2_CODE,</span>
+<span id="cb17-6"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb17-6" tabindex="-1"></a>    SPECIES_3_CODE,</span>
+<span id="cb17-7"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb17-7" tabindex="-1"></a>    SPECIES_4_CODE,</span>
+<span id="cb17-8"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb17-8" tabindex="-1"></a>    SPECIES_5_CODE,</span>
+<span id="cb17-9"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb17-9" tabindex="-1"></a>    SPECIES_6_CODE</span>
+<span id="cb17-10"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb17-10" tabindex="-1"></a>  )]</span>
+<span id="cb17-11"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb17-11" tabindex="-1"></a>)</span>
+<span id="cb17-12"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb17-12" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb17-13" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">melt</span>(</span>
+<span id="cb17-14"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb17-14" tabindex="-1"></a>  d,</span>
+<span id="cb17-15"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb17-15" tabindex="-1"></a>  <span class="at">id.vars =</span> <span class="st">&quot;FEATURE_ID&quot;</span>,</span>
+<span id="cb17-16"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb17-16" tabindex="-1"></a>  <span class="at">measure.vars =</span> <span class="fu">c</span>(</span>
+<span id="cb17-17"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb17-17" tabindex="-1"></a>    <span class="st">&quot;SPECIES_1_CODE&quot;</span>,</span>
+<span id="cb17-18"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb17-18" tabindex="-1"></a>    <span class="st">&quot;SPECIES_2_CODE&quot;</span>,</span>
+<span id="cb17-19"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb17-19" tabindex="-1"></a>    <span class="st">&quot;SPECIES_3_CODE&quot;</span>,</span>
+<span id="cb17-20"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb17-20" tabindex="-1"></a>    <span class="st">&quot;SPECIES_4_CODE&quot;</span>,</span>
+<span id="cb17-21"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb17-21" tabindex="-1"></a>    <span class="st">&quot;SPECIES_5_CODE&quot;</span>,</span>
+<span id="cb17-22"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb17-22" tabindex="-1"></a>    <span class="st">&quot;SPECIES_6_CODE&quot;</span></span>
+<span id="cb17-23"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb17-23" tabindex="-1"></a>  ),</span>
+<span id="cb17-24"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb17-24" tabindex="-1"></a>  <span class="at">variable.name =</span> <span class="st">&quot;spcode&quot;</span>,</span>
+<span id="cb17-25"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb17-25" tabindex="-1"></a>  <span class="at">value.name =</span> <span class="st">&quot;sp&quot;</span></span>
+<span id="cb17-26"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb17-26" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="extract-projected-volumes" class="section level2 hasAnchor" number="5.5">
+<h2><span class="header-section-number">5.5</span> Extract Projected Volumes<a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#extract-projected-volumes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb18-1" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">unique</span>(</span>
+<span id="cb18-2"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb18-2" tabindex="-1"></a>  yld[, .(</span>
+<span id="cb18-3"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb18-3" tabindex="-1"></a>    FEATURE_ID,</span>
+<span id="cb18-4"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb18-4" tabindex="-1"></a>    PRJ_TOTAL_AGE,</span>
+<span id="cb18-5"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb18-5" tabindex="-1"></a>    PRJ_SP1_VOL_DWB,</span>
+<span id="cb18-6"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb18-6" tabindex="-1"></a>    PRJ_SP2_VOL_DWB,</span>
+<span id="cb18-7"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb18-7" tabindex="-1"></a>    PRJ_SP3_VOL_DWB,</span>
+<span id="cb18-8"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb18-8" tabindex="-1"></a>    PRJ_SP4_VOL_DWB,</span>
+<span id="cb18-9"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb18-9" tabindex="-1"></a>    PRJ_SP5_VOL_DWB,</span>
+<span id="cb18-10"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb18-10" tabindex="-1"></a>    PRJ_SP6_VOL_DWB</span>
+<span id="cb18-11"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb18-11" tabindex="-1"></a>  )]</span>
+<span id="cb18-12"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb18-12" tabindex="-1"></a>)</span>
+<span id="cb18-13"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb18-13" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb18-14" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">unique</span>(</span>
+<span id="cb18-15"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb18-15" tabindex="-1"></a>  yld[, .(</span>
+<span id="cb18-16"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb18-16" tabindex="-1"></a>    FEATURE_ID,</span>
+<span id="cb18-17"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb18-17" tabindex="-1"></a>    PRJ_TOTAL_AGE,</span>
+<span id="cb18-18"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb18-18" tabindex="-1"></a>    PRJ_VOL_DWB</span>
+<span id="cb18-19"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb18-19" tabindex="-1"></a>  )]</span>
+<span id="cb18-20"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb18-20" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="calculate-conifer-and-deciduous-volume" class="section level2 hasAnchor" number="5.6">
+<h2><span class="header-section-number">5.6</span> Calculate Conifer and Deciduous Volume<a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#calculate-conifer-and-deciduous-volume" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb19-1" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">NoDecidVol_calculator</span>(</span>
+<span id="cb19-2"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb19-2" tabindex="-1"></a>  <span class="at">sp_list =</span> d2,</span>
+<span id="cb19-3"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb19-3" tabindex="-1"></a>  <span class="at">vol_list =</span> e,</span>
+<span id="cb19-4"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb19-4" tabindex="-1"></a>  <span class="at">decidsp =</span> decid</span>
+<span id="cb19-5"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb19-5" tabindex="-1"></a>)</span>
+<span id="cb19-6"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb19-6" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb19-7" tabindex="-1"></a>final <span class="ot">&lt;-</span> t <span class="sc">%&gt;%</span></span>
+<span id="cb19-8"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb19-8" tabindex="-1"></a>  <span class="fu">left_join</span>(f, <span class="at">by =</span> <span class="fu">join_by</span>(FEATURE_ID, PRJ_TOTAL_AGE)) <span class="sc">%&gt;%</span></span>
+<span id="cb19-9"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb19-9" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb19-10"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb19-10" tabindex="-1"></a>    <span class="at">PRJ_VOL_DWB =</span> <span class="fu">round</span>(PRJ_VOL_DWB, <span class="dv">2</span>),</span>
+<span id="cb19-11"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb19-11" tabindex="-1"></a>    <span class="at">PRJ_VOL_DWB_conifer =</span> <span class="fu">round</span>(PRJ_VOL_DWB_conifer, <span class="dv">2</span>),</span>
+<span id="cb19-12"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb19-12" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb19-13" tabindex="-1"></a>    <span class="at">PRJ_VOL_DWB_decid =</span></span>
+<span id="cb19-14"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb19-14" tabindex="-1"></a>      PRJ_VOL_DWB <span class="sc">-</span> <span class="fu">coalesce</span>(PRJ_VOL_DWB_conifer, <span class="dv">0</span>)</span>
+<span id="cb19-15"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb19-15" tabindex="-1"></a>  )</span></code></pre></div>
+</div>
+<div id="convert-volume-table-to-wide-format" class="section level2 hasAnchor" number="5.7">
+<h2><span class="header-section-number">5.7</span> Convert Volume Table to Wide Format<a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#convert-volume-table-to-wide-format" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb20-1" tabindex="-1"></a>final_wide <span class="ot">&lt;-</span> final <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb20-2" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb20-3"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb20-3" tabindex="-1"></a>    <span class="at">age_label =</span> <span class="fu">paste0</span>(<span class="st">&quot;_&quot;</span>, PRJ_TOTAL_AGE)</span>
+<span id="cb20-4"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb20-4" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb20-5"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb20-5" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb20-6"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb20-6" tabindex="-1"></a>    <span class="at">id_cols =</span> FEATURE_ID,</span>
+<span id="cb20-7"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb20-7" tabindex="-1"></a>    <span class="at">names_from =</span> age_label,</span>
+<span id="cb20-8"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb20-8" tabindex="-1"></a>    <span class="at">values_from =</span> <span class="fu">c</span>(</span>
+<span id="cb20-9"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb20-9" tabindex="-1"></a>      PRJ_VOL_DWB_conifer,</span>
+<span id="cb20-10"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb20-10" tabindex="-1"></a>      PRJ_VOL_DWB_decid</span>
+<span id="cb20-11"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb20-11" tabindex="-1"></a>    ),</span>
+<span id="cb20-12"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb20-12" tabindex="-1"></a>    <span class="at">names_glue =</span></span>
+<span id="cb20-13"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb20-13" tabindex="-1"></a>      <span class="st">&quot;{ifelse(.value == &#39;PRJ_VOL_DWB_conifer&#39;, &#39;MVcon&#39;, &#39;MVdec&#39;)}{age_label}&quot;</span></span>
+<span id="cb20-14"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb20-14" tabindex="-1"></a>  )</span></code></pre></div>
+</div>
+<div id="load-msyt-tables" class="section level2 hasAnchor" number="5.8">
+<h2><span class="header-section-number">5.8</span> Load MSYT Tables<a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#load-msyt-tables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb21-1" tabindex="-1"></a>msyt <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
+<span id="cb21-2"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb21-2" tabindex="-1"></a>  <span class="st">&quot;D://data//projects//MSYTDelivery//msyt_2025//prov//MSYT_prov_current_input_output.csv&quot;</span></span>
+<span id="cb21-3"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb21-3" tabindex="-1"></a>)</span>
+<span id="cb21-4"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb21-4" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb21-5" tabindex="-1"></a>reference <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
+<span id="cb21-6"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb21-6" tabindex="-1"></a>  <span class="st">&quot;D://data//projects//MSYTDelivery//msyt_2025//prov//MSYT_prov_reference.csv&quot;</span></span>
+<span id="cb21-7"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb21-7" tabindex="-1"></a>)</span>
+<span id="cb21-8"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb21-8" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb21-9" tabindex="-1"></a>msyt_fut_in <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
+<span id="cb21-10"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb21-10" tabindex="-1"></a>  <span class="st">&quot;D://data//projects//MSYTDelivery//msyt_2025//prov//MSYT_prov_future_input.csv&quot;</span></span>
+<span id="cb21-11"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb21-11" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="extend-msyt-curves-to-age-250" class="section level2 hasAnchor" number="5.9">
+<h2><span class="header-section-number">5.9</span> Extend MSYT Curves to Age 250<a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#extend-msyt-curves-to-age-250" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Ages greater than 120 are populated using age-120 values.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb22-1" tabindex="-1"></a>new_ages <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">130</span>, <span class="dv">250</span>, <span class="dv">10</span>)</span>
+<span id="cb22-2"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb22-2" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb22-3" tabindex="-1"></a>msyt_expanded <span class="ot">&lt;-</span> msyt</span>
+<span id="cb22-4"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb22-4" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb22-5" tabindex="-1"></a><span class="cf">for</span> (age <span class="cf">in</span> new_ages) {</span>
+<span id="cb22-6"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb22-6" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb22-7" tabindex="-1"></a>  msyt_expanded <span class="ot">&lt;-</span> msyt_expanded <span class="sc">%&gt;%</span></span>
+<span id="cb22-8"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb22-8" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb22-9"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb22-9" tabindex="-1"></a>      <span class="sc">!!</span><span class="fu">paste0</span>(<span class="st">&quot;MVcon_&quot;</span>, age) <span class="sc">:=</span> MVcon_120,</span>
+<span id="cb22-10"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb22-10" tabindex="-1"></a>      <span class="sc">!!</span><span class="fu">paste0</span>(<span class="st">&quot;MVdec_&quot;</span>, age) <span class="sc">:=</span> MVdec_120,</span>
+<span id="cb22-11"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb22-11" tabindex="-1"></a>      <span class="sc">!!</span><span class="fu">paste0</span>(<span class="st">&quot;HTcon_&quot;</span>, age) <span class="sc">:=</span> HTcon_120,</span>
+<span id="cb22-12"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb22-12" tabindex="-1"></a>      <span class="sc">!!</span><span class="fu">paste0</span>(<span class="st">&quot;HTdec_&quot;</span>, age) <span class="sc">:=</span> HTdec_120</span>
+<span id="cb22-13"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb22-13" tabindex="-1"></a>    )</span>
+<span id="cb22-14"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb22-14" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="reorder-msyt-columns" class="section level2 hasAnchor" number="5.10">
+<h2><span class="header-section-number">5.10</span> Reorder MSYT Columns<a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#reorder-msyt-columns" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb23-1" tabindex="-1"></a>ages <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">250</span>, <span class="dv">10</span>)</span>
+<span id="cb23-2"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb23-2" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb23-3" tabindex="-1"></a>ordered_cols <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb23-4"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb23-4" tabindex="-1"></a>  <span class="st">&quot;feature_id&quot;</span>,</span>
+<span id="cb23-5"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb23-5" tabindex="-1"></a>  <span class="fu">paste0</span>(<span class="st">&quot;MVcon_&quot;</span>, ages),</span>
+<span id="cb23-6"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb23-6" tabindex="-1"></a>  <span class="fu">paste0</span>(<span class="st">&quot;MVdec_&quot;</span>, ages),</span>
+<span id="cb23-7"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb23-7" tabindex="-1"></a>  <span class="fu">paste0</span>(<span class="st">&quot;HTcon_&quot;</span>, ages),</span>
+<span id="cb23-8"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb23-8" tabindex="-1"></a>  <span class="fu">paste0</span>(<span class="st">&quot;HTdec_&quot;</span>, ages)</span>
+<span id="cb23-9"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb23-9" tabindex="-1"></a>)</span>
+<span id="cb23-10"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb23-10" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb23-11" tabindex="-1"></a>msyt_expanded <span class="ot">&lt;-</span> msyt_expanded <span class="sc">%&gt;%</span></span>
+<span id="cb23-12"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb23-12" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">all_of</span>(ordered_cols))</span></code></pre></div>
+</div>
+<div id="build-msyt-output" class="section level2 hasAnchor" number="5.11">
+<h2><span class="header-section-number">5.11</span> Build MSYT Output<a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#build-msyt-output" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb24-1" tabindex="-1"></a>msyt_part <span class="ot">&lt;-</span> reference <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb24-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>current_yield <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;VDYP&quot;</span>, <span class="st">&quot;Excluded&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb24-3"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb24-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">&quot;feature_id&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb24-4"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb24-4" tabindex="-1"></a>  <span class="fu">left_join</span>(msyt_expanded, <span class="at">by =</span> <span class="st">&quot;feature_id&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb24-5"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb24-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">source =</span> <span class="st">&quot;MSYT&quot;</span>)</span></code></pre></div>
+</div>
+<div id="load-height-ratios" class="section level2 hasAnchor" number="5.12">
+<h2><span class="header-section-number">5.12</span> Load Height Ratios<a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#load-height-ratios" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb25-1" tabindex="-1"></a>ht_ratio <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
+<span id="cb25-2"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb25-2" tabindex="-1"></a>  <span class="st">&quot;D://data//projects//VDYP//VDYP//2024//prov//bec_height_ratios.csv&quot;</span></span>
+<span id="cb25-3"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb25-3" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="calculate-vdyp-heights" class="section level2 hasAnchor" number="5.13">
+<h2><span class="header-section-number">5.13</span> Calculate VDYP Heights<a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#calculate-vdyp-heights" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Calculate Conifer and Deciduous Heights based on the ratio table</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-1" tabindex="-1"></a>vdyp_ht <span class="ot">&lt;-</span> <span class="fu">unique</span>(</span>
+<span id="cb26-2"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-2" tabindex="-1"></a>  yld[, .(</span>
+<span id="cb26-3"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-3" tabindex="-1"></a>    FEATURE_ID,</span>
+<span id="cb26-4"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-4" tabindex="-1"></a>    PRJ_TOTAL_AGE,</span>
+<span id="cb26-5"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-5" tabindex="-1"></a>    PRJ_DOM_HT,</span>
+<span id="cb26-6"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-6" tabindex="-1"></a>    SPECIES_1_CODE</span>
+<span id="cb26-7"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-7" tabindex="-1"></a>  )]</span>
+<span id="cb26-8"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-8" tabindex="-1"></a>)</span>
+<span id="cb26-9"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-9" tabindex="-1"></a></span>
+<span id="cb26-10"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-10" tabindex="-1"></a>vdyp_ht <span class="ot">&lt;-</span> vdyp_ht <span class="sc">%&gt;%</span></span>
+<span id="cb26-11"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-11" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb26-12"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-12" tabindex="-1"></a>    reference <span class="sc">%&gt;%</span></span>
+<span id="cb26-13"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-13" tabindex="-1"></a>      <span class="fu">select</span>(feature_id, bec_zone, bec_subzone) <span class="sc">%&gt;%</span></span>
+<span id="cb26-14"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-14" tabindex="-1"></a>      <span class="fu">mutate</span>(</span>
+<span id="cb26-15"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-15" tabindex="-1"></a>        <span class="at">bec_label =</span> <span class="fu">paste0</span>(bec_zone, <span class="st">&quot;_&quot;</span>, bec_subzone)</span>
+<span id="cb26-16"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-16" tabindex="-1"></a>      ),</span>
+<span id="cb26-17"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-17" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;FEATURE_ID&quot;</span> <span class="ot">=</span> <span class="st">&quot;feature_id&quot;</span>)</span>
+<span id="cb26-18"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-18" tabindex="-1"></a>  )</span>
+<span id="cb26-19"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-19" tabindex="-1"></a></span>
+<span id="cb26-20"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-20" tabindex="-1"></a>vdyp_ht <span class="ot">&lt;-</span> vdyp_ht <span class="sc">%&gt;%</span></span>
+<span id="cb26-21"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-21" tabindex="-1"></a>  <span class="fu">left_join</span>(ht_ratio, <span class="at">by =</span> <span class="st">&quot;bec_label&quot;</span>)</span>
+<span id="cb26-22"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-22" tabindex="-1"></a></span>
+<span id="cb26-23"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-23" tabindex="-1"></a>vdyp_ht <span class="ot">&lt;-</span> vdyp_ht <span class="sc">%&gt;%</span></span>
+<span id="cb26-24"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-24" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb26-25"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-25" tabindex="-1"></a>    <span class="at">is_decid =</span> SPECIES_1_CODE <span class="sc">%in%</span> decid,</span>
+<span id="cb26-26"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-26" tabindex="-1"></a></span>
+<span id="cb26-27"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-27" tabindex="-1"></a>    <span class="at">HTcon =</span> <span class="fu">case_when</span>(</span>
+<span id="cb26-28"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-28" tabindex="-1"></a>      is_decid <span class="sc">~</span> PRJ_DOM_HT <span class="sc">*</span> con_dec_ratio,</span>
+<span id="cb26-29"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-29" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> PRJ_DOM_HT</span>
+<span id="cb26-30"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-30" tabindex="-1"></a>    ),</span>
+<span id="cb26-31"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-31" tabindex="-1"></a></span>
+<span id="cb26-32"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-32" tabindex="-1"></a>    <span class="at">HTdec =</span> <span class="fu">case_when</span>(</span>
+<span id="cb26-33"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-33" tabindex="-1"></a>      is_decid <span class="sc">~</span> PRJ_DOM_HT,</span>
+<span id="cb26-34"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-34" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> PRJ_DOM_HT <span class="sc">*</span> dec_con_ratio</span>
+<span id="cb26-35"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-35" tabindex="-1"></a>    )</span>
+<span id="cb26-36"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-36" tabindex="-1"></a>  )</span>
+<span id="cb26-37"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-37" tabindex="-1"></a></span>
+<span id="cb26-38"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-38" tabindex="-1"></a>vdyp_ht_wide <span class="ot">&lt;-</span> vdyp_ht <span class="sc">%&gt;%</span></span>
+<span id="cb26-39"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-39" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb26-40"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-40" tabindex="-1"></a>    <span class="at">age_label =</span> <span class="fu">paste0</span>(<span class="st">&quot;_&quot;</span>, PRJ_TOTAL_AGE)</span>
+<span id="cb26-41"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-41" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb26-42"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-42" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb26-43"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-43" tabindex="-1"></a>    <span class="at">id_cols =</span> FEATURE_ID,</span>
+<span id="cb26-44"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-44" tabindex="-1"></a>    <span class="at">names_from =</span> age_label,</span>
+<span id="cb26-45"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-45" tabindex="-1"></a>    <span class="at">values_from =</span> <span class="fu">c</span>(HTcon, HTdec),</span>
+<span id="cb26-46"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-46" tabindex="-1"></a>    <span class="at">names_glue =</span> <span class="st">&quot;{.value}{age_label}&quot;</span></span>
+<span id="cb26-47"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb26-47" tabindex="-1"></a>  )</span></code></pre></div>
+</div>
+<div id="build-vdyp-output" class="section level2 hasAnchor" number="5.14">
+<h2><span class="header-section-number">5.14</span> Build VDYP Output<a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#build-vdyp-output" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb27-1" tabindex="-1"></a>vdyp_part <span class="ot">&lt;-</span> reference <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb27-2" tabindex="-1"></a>  <span class="fu">filter</span>(current_yield <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;VDYP&quot;</span>, <span class="st">&quot;Excluded&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb27-3"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb27-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">&quot;feature_id&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-4"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb27-4" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb27-5"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb27-5" tabindex="-1"></a>    final_wide,</span>
+<span id="cb27-6"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb27-6" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;feature_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;FEATURE_ID&quot;</span>)</span>
+<span id="cb27-7"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb27-7" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb27-8"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb27-8" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb27-9"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb27-9" tabindex="-1"></a>    vdyp_ht_wide,</span>
+<span id="cb27-10"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb27-10" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;feature_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;FEATURE_ID&quot;</span>)</span>
+<span id="cb27-11"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb27-11" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb27-12"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb27-12" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">source =</span> <span class="st">&quot;NSYT&quot;</span>)</span>
+<span id="cb27-13"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb27-13" tabindex="-1"></a></span>
+<span id="cb27-14"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb27-14" tabindex="-1"></a>final_yld <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb27-15"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb27-15" tabindex="-1"></a>  msyt_part,</span>
+<span id="cb27-16"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb27-16" tabindex="-1"></a>  vdyp_part</span>
+<span id="cb27-17"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb27-17" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="export-final-yield-table" class="section level2 hasAnchor" number="5.15">
+<h2><span class="header-section-number">5.15</span> Export Final Yield Table<a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#export-final-yield-table" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb28-1" tabindex="-1"></a><span class="fu">write.csv</span>(</span>
+<span id="cb28-2"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb28-2" tabindex="-1"></a>  final_yld,</span>
+<span id="cb28-3"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb28-3" tabindex="-1"></a>  <span class="st">&quot;D:</span><span class="sc">\\</span><span class="st">data</span><span class="sc">\\</span><span class="st">projects</span><span class="sc">\\</span><span class="st">VDYP</span><span class="sc">\\</span><span class="st">VDYP</span><span class="sc">\\</span><span class="st">2024</span><span class="sc">\\</span><span class="st">prov</span><span class="sc">\\</span><span class="st">yld_combined.csv&quot;</span>,</span>
+<span id="cb28-4"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb28-4" tabindex="-1"></a>  <span class="at">row.names =</span> <span class="cn">FALSE</span></span>
+<span id="cb28-5"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb28-5" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="qaqc-checks" class="section level2 hasAnchor" number="5.16">
+<h2><span class="header-section-number">5.16</span> QA/QC Checks<a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#qaqc-checks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Identify records where all merchantable volume columns equal 0.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb29-1" tabindex="-1"></a>mv_cols <span class="ot">&lt;-</span> <span class="fu">grep</span>(</span>
+<span id="cb29-2"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb29-2" tabindex="-1"></a>  <span class="st">&quot;^MV(con|dec)_&quot;</span>,</span>
+<span id="cb29-3"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb29-3" tabindex="-1"></a>  <span class="fu">names</span>(final_yld),</span>
+<span id="cb29-4"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb29-4" tabindex="-1"></a>  <span class="at">value =</span> <span class="cn">TRUE</span></span>
+<span id="cb29-5"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb29-5" tabindex="-1"></a>)</span>
+<span id="cb29-6"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb29-6" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb29-7" tabindex="-1"></a>zero_features <span class="ot">&lt;-</span> final_yld <span class="sc">%&gt;%</span></span>
+<span id="cb29-8"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb29-8" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb29-9"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb29-9" tabindex="-1"></a>    <span class="at">total_mv =</span> <span class="fu">rowSums</span>(</span>
+<span id="cb29-10"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb29-10" tabindex="-1"></a>      <span class="fu">across</span>(<span class="fu">all_of</span>(mv_cols)),</span>
+<span id="cb29-11"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb29-11" tabindex="-1"></a>      <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
+<span id="cb29-12"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb29-12" tabindex="-1"></a>    )</span>
+<span id="cb29-13"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb29-13" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb29-14"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb29-14" tabindex="-1"></a>  <span class="fu">filter</span>(total_mv <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-15"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb29-15" tabindex="-1"></a>  <span class="fu">select</span>(feature_id, source)</span></code></pre></div>
+</div>
+<div id="review-nsyt-zero-volume-records" class="section level2 hasAnchor" number="5.17">
+<h2><span class="header-section-number">5.17</span> Review NSYT Zero-Volume Records<a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#review-nsyt-zero-volume-records" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb30-1" tabindex="-1"></a>nsyt_all_zero <span class="ot">&lt;-</span> zero_features <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb30-2" tabindex="-1"></a>  <span class="fu">filter</span>(source <span class="sc">==</span> <span class="st">&quot;NSYT&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb30-3" tabindex="-1"></a>  <span class="fu">left_join</span>(reference, <span class="at">by =</span> <span class="st">&quot;feature_id&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-4"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb30-4" tabindex="-1"></a>  <span class="fu">left_join</span>(t, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;feature_id&quot;</span> <span class="ot">=</span> <span class="st">&quot;FEATURE_ID&quot;</span>))</span>
+<span id="cb30-5"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb30-5" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb30-6" tabindex="-1"></a>nsyt_all_zero</span></code></pre></div>
+</div>
+<div id="review-msyt-zero-volume-records" class="section level2 hasAnchor" number="5.18">
+<h2><span class="header-section-number">5.18</span> Review MSYT Zero-Volume Records<a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#review-msyt-zero-volume-records" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb31-1" tabindex="-1"></a>msyt_all_zero <span class="ot">&lt;-</span> zero_features <span class="sc">%&gt;%</span></span>
+<span id="cb31-2"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb31-2" tabindex="-1"></a>  <span class="fu">filter</span>(source <span class="sc">==</span> <span class="st">&quot;MSYT&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-3"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb31-3" tabindex="-1"></a>  <span class="fu">left_join</span>(reference, <span class="at">by =</span> <span class="st">&quot;feature_id&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-4"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb31-4" tabindex="-1"></a>  <span class="fu">left_join</span>(msyt, <span class="at">by =</span> <span class="st">&quot;feature_id&quot;</span>)</span>
+<span id="cb31-5"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb31-5" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="provincial-yield-table---nsyt-and-msyt-combined-table.html#cb31-6" tabindex="-1"></a>msyt_all_zero</span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="vdyp-projection-parameters-and-final-yield-table-development.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="comparison-with-vri-r1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/USERNAME/REPO/edit/BRANCH/04-produce_combined_yields.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["provincial NSYT production process and assessment.pdf", "provincial NSYT production process and assessment.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>

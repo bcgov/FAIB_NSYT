@@ -1,11 +1,14 @@
-# Hello bookdown 
+# Introduction
 
-All chapters start with a first-level heading followed by your chapter title, like the line above. There should be only one first-level heading (`#`) per .Rmd file.
+Provincial NSYT is generated using Rank 1 (R1) layer of provincial VRI attributes. Variable Density Yield Projection system version 7 (VDYP7) is used for the projection. The purpose of this product is to assist in the modelling process in timber supply review and forest landscape planning.  
 
-## A section
+The following chapters describe how the inputs were prepared and two sets of assessments that have been done to evaluate the product:
 
-All chapter sections start with a second-level (`##`) or higher heading followed by your section title, like the sections above and below here. You can have as many as you want within a chapter.
+Chapter 3 describes how VDYP inputs was prepared and necessary updates/corrections of the inputs
 
-### An unnumbered section {-}
+Chapter 4 shows the VDYP projection parameters and attributes that were used for the final products 
 
-Chapters and sections are numbered by default. To un-number a heading, add a `{.unnumbered}` or the shorter `{-}` at the end of the heading, like in this section.
+Chapter 5 presents the comparison report which compares projected volume from provincial NSYT to the live volume in VRI R1 layer
+
+Chapter 6 presents a comparison between the polygon level volume using two types of inputs: inputs that only include R1 layer (this product, polygon level volume is the projected volume from R1 layer) and input that includes all layers (polygon level volume is the summarize of projected volume from all layers).
+

@@ -1,0 +1,419 @@
+# Provincial Yield table - NSYT and MSYT combined table
+## Overview
+
+This script generates a combined yield table containing:
+
+- Conifer merchantable volume (`MVcon_*`)
+- Deciduous merchantable volume (`MVdec_*`)
+- Conifer dominant height (`HTcon_*`)
+- Deciduous dominant height (`HTdec_*`)
+
+The workflow combines:
+
+1. VDYP-based yield curves (NSYT workflow)
+2. MSYT yield curves
+
+The final output is exported as a single yield table for downstream modeling.
+
+```{r setup, include=FALSE}
+#globally to the entire document
+knitr::opts_chunk$set(
+  eval = FALSE,   
+  echo = TRUE    
+)
+```
+
+```{r libraries}
+## Load Libraries
+library(data.table)
+library(dplyr)
+library(tidyr)
+```
+
+## Define Deciduous Species
+Species in this list are treated as deciduous.
+```{r deciduous-species}
+decid <- c(
+  "AC","ACB","ACT","AT","AD","AX",
+  "DR","E","EA","EB","EE","EP","ES","EW",
+  "EXP","XH","G","GP","KC","L","LA","LT",
+  "LW","M","MB","MN","MV","Q","QG","XH",
+  "WT","WS","WP","WD","WB","WA","W",
+  "VP","VB","V","U","RA"
+)
+```
+
+`NoDecidVol_calculator()` calculates conifer-only projected volume by removing deciduous species from VDYP projected species volumes.
+```{r function}
+NoDecidVol_calculator <- function (sp_list,
+                                   vol_list,
+                                   decidsp,
+                                   multilayer = FALSE) {
+
+  # Standardize species slot names
+  sp_list[spcode %in% "SPECIES_1_CODE", `:=`(spcode, "sp1")]
+  sp_list[spcode %in% "SPECIES_2_CODE", `:=`(spcode, "sp2")]
+  sp_list[spcode %in% "SPECIES_3_CODE", `:=`(spcode, "sp3")]
+  sp_list[spcode %in% "SPECIES_4_CODE", `:=`(spcode, "sp4")]
+  sp_list[spcode %in% "SPECIES_5_CODE", `:=`(spcode, "sp5")]
+  sp_list[spcode %in% "SPECIES_6_CODE", `:=`(spcode, "sp6")]
+
+  # Remove deciduous species
+  sp_list2 <- sp_list[
+    !is.na(sp) &
+      sp != "" &
+      !sp %in% decidsp
+  ]
+
+  # Replace NA projected volumes with 0
+  vol_list[is.na(PRJ_SP1_VOL_DWB), `:=`(PRJ_SP1_VOL_DWB, 0)]
+  vol_list[is.na(PRJ_SP2_VOL_DWB), `:=`(PRJ_SP2_VOL_DWB, 0)]
+  vol_list[is.na(PRJ_SP3_VOL_DWB), `:=`(PRJ_SP3_VOL_DWB, 0)]
+  vol_list[is.na(PRJ_SP4_VOL_DWB), `:=`(PRJ_SP4_VOL_DWB, 0)]
+  vol_list[is.na(PRJ_SP5_VOL_DWB), `:=`(PRJ_SP5_VOL_DWB, 0)]
+  vol_list[is.na(PRJ_SP6_VOL_DWB), `:=`(PRJ_SP6_VOL_DWB, 0)]
+
+  # Convert projected species volumes to long format
+    vol_list2 <- melt(
+      vol_list,
+      id.vars = c("FEATURE_ID", "PRJ_TOTAL_AGE"),
+      measure.vars = c(
+        "PRJ_SP1_VOL_DWB",
+        "PRJ_SP2_VOL_DWB",
+        "PRJ_SP3_VOL_DWB",
+        "PRJ_SP4_VOL_DWB",
+        "PRJ_SP5_VOL_DWB",
+        "PRJ_SP6_VOL_DWB"
+      ),
+      variable.name = "spcode",
+      value.name = "vol"
+    )
+
+  # Standardize projected volume species names
+  vol_list2[spcode %in% "PRJ_SP1_VOL_DWB", `:=`(spcode, "sp1")]
+  vol_list2[spcode %in% "PRJ_SP2_VOL_DWB", `:=`(spcode, "sp2")]
+  vol_list2[spcode %in% "PRJ_SP3_VOL_DWB", `:=`(spcode, "sp3")]
+  vol_list2[spcode %in% "PRJ_SP4_VOL_DWB", `:=`(spcode, "sp4")]
+  vol_list2[spcode %in% "PRJ_SP5_VOL_DWB", `:=`(spcode, "sp5")]
+  vol_list2[spcode %in% "PRJ_SP6_VOL_DWB", `:=`(spcode, "sp6")]
+
+  # Merge species and volume tables
+    all <- merge(
+      sp_list2,
+      vol_list2,
+      by = c("FEATURE_ID", "spcode"),
+      all.x = TRUE
+    )
+
+    all2 <- all[
+      ,
+      .(PRJ_VOL_DWB_conifer = sum(vol, na.rm = TRUE)),
+      by = c("FEATURE_ID", "PRJ_TOTAL_AGE")
+    ]
+
+  return(all2)
+}
+```
+
+## Load VDYP Yield Table
+```{r load-vdyp}
+yld <- readRDS(
+  "D:\\data\\projects\\VDYP\\VDYP\\2024\\prov\\VDYP7RunParallel\\prov_lesschanges_nsyt_yieldtable.rds"
+)
+
+setDT(yld)
+```
+
+## Extract Species Codes
+Convert species fields into long format.
+```{r species}
+d <- unique(
+  yld[, .(
+    FEATURE_ID,
+    SPECIES_1_CODE,
+    SPECIES_2_CODE,
+    SPECIES_3_CODE,
+    SPECIES_4_CODE,
+    SPECIES_5_CODE,
+    SPECIES_6_CODE
+  )]
+)
+
+d2 <- melt(
+  d,
+  id.vars = "FEATURE_ID",
+  measure.vars = c(
+    "SPECIES_1_CODE",
+    "SPECIES_2_CODE",
+    "SPECIES_3_CODE",
+    "SPECIES_4_CODE",
+    "SPECIES_5_CODE",
+    "SPECIES_6_CODE"
+  ),
+  variable.name = "spcode",
+  value.name = "sp"
+)
+```
+
+## Extract Projected Volumes
+```{r projected-volumes}
+e <- unique(
+  yld[, .(
+    FEATURE_ID,
+    PRJ_TOTAL_AGE,
+    PRJ_SP1_VOL_DWB,
+    PRJ_SP2_VOL_DWB,
+    PRJ_SP3_VOL_DWB,
+    PRJ_SP4_VOL_DWB,
+    PRJ_SP5_VOL_DWB,
+    PRJ_SP6_VOL_DWB
+  )]
+)
+
+t <- unique(
+  yld[, .(
+    FEATURE_ID,
+    PRJ_TOTAL_AGE,
+    PRJ_VOL_DWB
+  )]
+)
+```
+
+## Calculate Conifer and Deciduous Volume
+```{r calculate-volumes}
+f <- NoDecidVol_calculator(
+  sp_list = d2,
+  vol_list = e,
+  decidsp = decid
+)
+
+final <- t %>%
+  left_join(f, by = join_by(FEATURE_ID, PRJ_TOTAL_AGE)) %>%
+  mutate(
+    PRJ_VOL_DWB = round(PRJ_VOL_DWB, 2),
+    PRJ_VOL_DWB_conifer = round(PRJ_VOL_DWB_conifer, 2),
+
+    PRJ_VOL_DWB_decid =
+      PRJ_VOL_DWB - coalesce(PRJ_VOL_DWB_conifer, 0)
+  )
+```
+
+## Convert Volume Table to Wide Format
+
+```{r wide-volume}
+final_wide <- final %>%
+  mutate(
+    age_label = paste0("_", PRJ_TOTAL_AGE)
+  ) %>%
+  pivot_wider(
+    id_cols = FEATURE_ID,
+    names_from = age_label,
+    values_from = c(
+      PRJ_VOL_DWB_conifer,
+      PRJ_VOL_DWB_decid
+    ),
+    names_glue =
+      "{ifelse(.value == 'PRJ_VOL_DWB_conifer', 'MVcon', 'MVdec')}{age_label}"
+  )
+```
+
+## Load MSYT Tables
+
+```{r load-msyt}
+msyt <- read.csv(
+  "D://data//projects//MSYTDelivery//msyt_2025//prov//MSYT_prov_current_input_output.csv"
+)
+
+reference <- read.csv(
+  "D://data//projects//MSYTDelivery//msyt_2025//prov//MSYT_prov_reference.csv"
+)
+
+msyt_fut_in <- read.csv(
+  "D://data//projects//MSYTDelivery//msyt_2025//prov//MSYT_prov_future_input.csv"
+)
+```
+
+## Extend MSYT Curves to Age 250
+
+Ages greater than 120 are populated using age-120 values.
+
+```{r extend-msyt}
+new_ages <- seq(130, 250, 10)
+
+msyt_expanded <- msyt
+
+for (age in new_ages) {
+
+  msyt_expanded <- msyt_expanded %>%
+    mutate(
+      !!paste0("MVcon_", age) := MVcon_120,
+      !!paste0("MVdec_", age) := MVdec_120,
+      !!paste0("HTcon_", age) := HTcon_120,
+      !!paste0("HTdec_", age) := HTdec_120
+    )
+}
+```
+
+## Reorder MSYT Columns
+
+```{r reorder-msyt}
+ages <- seq(0, 250, 10)
+
+ordered_cols <- c(
+  "feature_id",
+  paste0("MVcon_", ages),
+  paste0("MVdec_", ages),
+  paste0("HTcon_", ages),
+  paste0("HTdec_", ages)
+)
+
+msyt_expanded <- msyt_expanded %>%
+  select(all_of(ordered_cols))
+```
+
+## Build MSYT Output
+
+```{r build-msyt}
+msyt_part <- reference %>%
+  filter(!current_yield %in% c("VDYP", "Excluded")) %>%
+  select("feature_id") %>%
+  left_join(msyt_expanded, by = "feature_id") %>%
+  mutate(source = "MSYT")
+```
+
+## Load Height Ratios
+
+```{r load-height-ratios}
+ht_ratio <- read.csv(
+  "D://data//projects//VDYP//VDYP//2024//prov//bec_height_ratios.csv"
+)
+```
+
+## Calculate VDYP Heights
+Calculate Conifer and Deciduous Heights based on the ratio table
+
+```{r vdyp-heights}
+vdyp_ht <- unique(
+  yld[, .(
+    FEATURE_ID,
+    PRJ_TOTAL_AGE,
+    PRJ_DOM_HT,
+    SPECIES_1_CODE
+  )]
+)
+
+vdyp_ht <- vdyp_ht %>%
+  left_join(
+    reference %>%
+      select(feature_id, bec_zone, bec_subzone) %>%
+      mutate(
+        bec_label = paste0(bec_zone, "_", bec_subzone)
+      ),
+    by = c("FEATURE_ID" = "feature_id")
+  )
+
+vdyp_ht <- vdyp_ht %>%
+  left_join(ht_ratio, by = "bec_label")
+
+vdyp_ht <- vdyp_ht %>%
+  mutate(
+    is_decid = SPECIES_1_CODE %in% decid,
+
+    HTcon = case_when(
+      is_decid ~ PRJ_DOM_HT * con_dec_ratio,
+      TRUE ~ PRJ_DOM_HT
+    ),
+
+    HTdec = case_when(
+      is_decid ~ PRJ_DOM_HT,
+      TRUE ~ PRJ_DOM_HT * dec_con_ratio
+    )
+  )
+
+vdyp_ht_wide <- vdyp_ht %>%
+  mutate(
+    age_label = paste0("_", PRJ_TOTAL_AGE)
+  ) %>%
+  pivot_wider(
+    id_cols = FEATURE_ID,
+    names_from = age_label,
+    values_from = c(HTcon, HTdec),
+    names_glue = "{.value}{age_label}"
+  )
+```
+
+## Build VDYP Output
+
+```{r build-vdyp}
+vdyp_part <- reference %>%
+  filter(current_yield %in% c("VDYP", "Excluded")) %>%
+  select("feature_id") %>%
+  left_join(
+    final_wide,
+    by = c("feature_id" = "FEATURE_ID")
+  ) %>%
+  left_join(
+    vdyp_ht_wide,
+    by = c("feature_id" = "FEATURE_ID")
+  ) %>%
+  mutate(source = "NSYT")
+
+final_yld <- bind_rows(
+  msyt_part,
+  vdyp_part
+)
+```
+
+## Export Final Yield Table
+
+```{r export}
+write.csv(
+  final_yld,
+  "D:\\data\\projects\\VDYP\\VDYP\\2024\\prov\\yld_combined.csv",
+  row.names = FALSE
+)
+```
+
+## QA/QC Checks
+
+Identify records where all merchantable volume columns equal 0.
+
+```{r qaqc}
+mv_cols <- grep(
+  "^MV(con|dec)_",
+  names(final_yld),
+  value = TRUE
+)
+
+zero_features <- final_yld %>%
+  mutate(
+    total_mv = rowSums(
+      across(all_of(mv_cols)),
+      na.rm = TRUE
+    )
+  ) %>%
+  filter(total_mv == 0) %>%
+  select(feature_id, source)
+```
+
+## Review NSYT Zero-Volume Records
+
+```{r nsyt-zero}
+nsyt_all_zero <- zero_features %>%
+  filter(source == "NSYT") %>%
+  left_join(reference, by = "feature_id") %>%
+  left_join(t, by = c("feature_id" = "FEATURE_ID"))
+
+nsyt_all_zero
+```
+
+## Review MSYT Zero-Volume Records
+
+```{r msyt-zero}
+msyt_all_zero <- zero_features %>%
+  filter(source == "MSYT") %>%
+  left_join(reference, by = "feature_id") %>%
+  left_join(msyt, by = "feature_id")
+
+msyt_all_zero
+```
