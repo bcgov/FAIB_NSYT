@@ -1,7 +1,7 @@
 # FAIB_NSYT
 This is the repository for the provincial natural stand yield table (NSYT) production process
 
-The production process and assessments document is in the [link to the documentation]
+The link to the production process and assessments document is: https://bcgov.github.io/FAIB_NSYT/ 
 
 ## Final product
 
