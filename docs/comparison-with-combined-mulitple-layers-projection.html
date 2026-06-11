@@ -23,7 +23,7 @@
 <meta name="author" content="Shuyan Jiang, Kelly Izzard, Yingbing Chen" />
 
 
-<meta name="date" content="2026-06-08" />
+<meta name="date" content="2026-06-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -198,7 +198,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="7.1" data-path="comparison-with-combined-mulitple-layers-projection.html"><a href="comparison-with-combined-mulitple-layers-projection.html#set1.-r1-only-vs-multilayer-set1-containing-p-layer-and-at-least-one-other-layer-that-is-not-d-layer"><i class="fa fa-check"></i><b>7.1</b> set1. r1 only vs multilayer set1 (containing P layer and at least one other layer that is not D layer)</a></li>
 <li class="chapter" data-level="7.2" data-path="comparison-with-combined-mulitple-layers-projection.html"><a href="comparison-with-combined-mulitple-layers-projection.html#set2.-r1-only-vs-multilayer-set2-only-containing-p-layer-and-d-layer"><i class="fa fa-check"></i><b>7.2</b> set2. r1 only vs multilayer set2 (only containing P layer and D layer)</a></li>
-<li class="chapter" data-level="7.3" data-path="comparison-with-combined-mulitple-layers-projection.html"><a href="comparison-with-combined-mulitple-layers-projection.html#overall---one-layer-polygons-muliple-layer-polygons-set1set2"><i class="fa fa-check"></i><b>7.3</b> Overall - one-layer polygons + muliple-layer polygons (set1+set2)</a></li>
+<li class="chapter" data-level="7.3" data-path="comparison-with-combined-mulitple-layers-projection.html"><a href="comparison-with-combined-mulitple-layers-projection.html#overall---one-layer-polygons-multiple-layer-polygons-set1set2"><i class="fa fa-check"></i><b>7.3</b> Overall - one-layer polygons + multiple-layer polygons (set1+set2)</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -224,6 +224,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 7</span> comparison with combined mulitple layers’ projection<a href="comparison-with-combined-mulitple-layers-projection.html#comparison-with-combined-mulitple-layers-projection" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Some of the VRI polygons contain multiple layers, for example, a polygon might have a primary layer (also labeled as R1 layer) and a residual layer. VDYP7 can projected these polygons by each of the layer and return yield projection for each layer within each polygon. The final yield of each polygon is the summarized projection of each layer to the polygon level. For the process of provincial NSYT, only R1 layer was input into VDYP and being projected. This chapter is to compare the summarized projection of each layer with the R1 layer only projection.</p>
 <p><strong>numbers multi-layer polygons across the province (from vdyp_input_layer_and_polygon_2024)</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">category</th>
+<th align="right">N</th>
+<th align="right">pct</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">onelayer</td>
+<td align="right">5115447</td>
+<td align="right">83</td>
+</tr>
+<tr class="even">
+<td align="left">multilayer</td>
+<td align="right">239892</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">P_and_D</td>
+<td align="right">812801</td>
+<td align="right">13</td>
+</tr>
+</tbody>
+</table>
 <p>“multilayer” means the polygon has P layer and at least one other layer that is not D layer;
 “P_and_D” means the polygon only has P layer and D layer</p>
 <div id="set1.-r1-only-vs-multilayer-set1-containing-p-layer-and-at-least-one-other-layer-that-is-not-d-layer" class="section level2 hasAnchor" number="7.1">
@@ -236,6 +262,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol start="2" style="list-style-type: decimal">
 <li>mean differences and variation of proj_vol_dwb by projected age</li>
 </ol>
+<p><img src="data/figures/fig-set1_meandiff.png" alt="" width="70%" /><img src="data/figures/fig-set1_diffvar.png" alt="" width="70%" /></p>
 </div>
 <div id="set2.-r1-only-vs-multilayer-set2-only-containing-p-layer-and-d-layer" class="section level2 hasAnchor" number="7.2">
 <h2><span class="header-section-number">7.2</span> set2. r1 only vs multilayer set2 (only containing P layer and D layer)<a href="comparison-with-combined-mulitple-layers-projection.html#set2.-r1-only-vs-multilayer-set2-only-containing-p-layer-and-d-layer" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -249,8 +276,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p><img src="data/figures/fig-set2_meandiff.png" alt="" width="70%" /><img src="data/figures/fig-set2_diffvar.png" alt="" width="70%" /></p>
 </div>
-<div id="overall---one-layer-polygons-muliple-layer-polygons-set1set2" class="section level2 hasAnchor" number="7.3">
-<h2><span class="header-section-number">7.3</span> Overall - one-layer polygons + muliple-layer polygons (set1+set2)<a href="comparison-with-combined-mulitple-layers-projection.html#overall---one-layer-polygons-muliple-layer-polygons-set1set2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="overall---one-layer-polygons-multiple-layer-polygons-set1set2" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Overall - one-layer polygons + multiple-layer polygons (set1+set2)<a href="comparison-with-combined-mulitple-layers-projection.html#overall---one-layer-polygons-multiple-layer-polygons-set1set2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>mean proj_vol_dwb after combining all polygons</p>
 <p><img src="data/figures/fig-set2_meanvol.png" alt="" width="70%" /></p>
 <p>statistic summary table of all polygons</p>

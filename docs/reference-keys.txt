@@ -47,4 +47,4 @@ closest-match
 comparison-with-combined-mulitple-layers-projection
 set1.-r1-only-vs-multilayer-set1-containing-p-layer-and-at-least-one-other-layer-that-is-not-d-layer
 set2.-r1-only-vs-multilayer-set2-only-containing-p-layer-and-d-layer
-overall---one-layer-polygons-muliple-layer-polygons-set1set2
+overall---one-layer-polygons-multiple-layer-polygons-set1set2

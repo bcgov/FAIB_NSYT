@@ -131,7 +131,7 @@ The closest match volume calculation works by identifying the record with the sm
 The resulting NSYT closest data frame is loaded to disk and its vol_dif field is then assessed statistically using the dlookr::describe function. 
 
 ```{r tab-closest_match,message=FALSE,warning=FALSE,eval=TRUE}
-prov<-readRDS("D:/Data/provincial_NSYT/documentation_backup/nsyt_closest.rds")
+prov<-readRDS("../nsyt_closest.rds")
 # pretty_table(describe(prov))
 kable(describe(prov),
       caption =  "Volume Comparison Table",
