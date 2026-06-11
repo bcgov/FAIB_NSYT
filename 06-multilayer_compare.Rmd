@@ -13,7 +13,7 @@ knitr::kable(
 )
 
 ```
-"multilayer" means the polygon has P layer and at least one other layer that is not D layer;
+*"multilayer" means the polygon has P layer and at least one other layer that is not D layer;
 "P_and_D" means the polygon only has P layer and D layer
 
 ## set1. r1 only vs multilayer set1 (containing P layer and at least one other layer that is not D layer)
