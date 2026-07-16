@@ -71,7 +71,7 @@ Mean PRJ_VOL_DWB were calculated by averaging the PRJ_VOL_DWB from all polygons 
 Figure 7. Mean PRJ_VOL_DWB after combining all polygons
 
 ```{r fig-prov_diff,eval=TRUE, echo=FALSE, warning=FALSE, message=FALSE, out.width="70%"}
-knitr::include_graphics("data/figures/fig-set2_meanvol.png")
+knitr::include_graphics("data/figures/fig-prov_diff.png")
 ```
 
 Table 2. statistic summary table of all polygons
